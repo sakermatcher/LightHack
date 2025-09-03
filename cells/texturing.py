@@ -4,7 +4,6 @@ from pygame import image, surface, SRCALPHA, transform, BLEND_MULT
 logging.addLevelName(50, "TEXTURE LOAD")
 logging.addLevelName(51, "TEXTURING")
 logging.addLevelName(52, "LAYER UPDATE")
-logging.FileHandler("logs/texturing.log")
 
 logging.basicConfig(level=50, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=51, format='%(asctime)s - %(levelname)s - %(message)s')
