@@ -4,7 +4,7 @@ from .default import default
 
 class prism(default):
 
-    def __init__(self, xy: tuple[int, int]|None = None, name: str = "Laser", layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name: str = "P", layout=None, data=None):
         """
         xy= (x,y)
         name= cell name

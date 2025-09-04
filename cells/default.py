@@ -68,8 +68,7 @@ class default():
         else:
             return surface.Surface((40,40), SRCALPHA)
 
-
-    def __init__(self, xy: tuple[int, int]|None, name:str="default", breaks=None, layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None, name:str="D", breaks=None, layout=None, data=None):
         self.texture= texturing()
         self.xy = xy
         self.name = name
@@ -79,7 +78,7 @@ class default():
         self.inputs= [(0,0,0), (0,0,0), (0,0,0), (0,0,0)]
         self.stateX= {"colorA": (0, 0, 0), "colorB": (0, 0, 0), "breakA": False, "breakB": False, "vertical": False}
         self.stateY= {"colorA": (0, 0, 0), "colorB": (0, 0, 0), "breakA": False, "breakB": False, "vertical": True}
-        if name != "default":
+        if name != "D":
             self.texture.newLayer(layer=0, name="base", textures=["cell.png"])
         self.texture.newLayer(layer=2, name="beamV", textures=["beams/beamA.png", "beams/beamB.png", "beams/breakA.png", "beams/breakB.png"], renderer=self.beamRenderer, state=self.stateY)
         self.texture.newLayer(layer=1, name="beamH", textures=["beams/beamA.png", "beams/beamB.png", "beams/breakA.png", "beams/breakB.png"], renderer=self.beamRenderer, state=self.stateX)
@@ -179,7 +178,6 @@ class default():
         self.changeBeamStates(False, colorA= (0,0,0), colorB=(0,0,0), breakA= False, breakB= False)
 
     def changeLight(self, From, color=None):
-        logging.log(60, f"Checking Light for {self.name}, at {self.xy}, coming from {From}, with clr {color}")
         if color is None:
             color=(0,0,0)
         self.inputs[From] = color
@@ -224,15 +222,15 @@ class default():
         return {From:color}, Break
     
     def __eq__(self, other):
-        if self.name == "default":
+        if self.name == "D":
             return "D" == other
         else:
             return self.name[0].upper() == other
-        
-    def convert(self, other:object, layout= None, data= None):
+
+    def convert(self, other:object, name=None, layout= None, data= None):
         if data is not None:
             data= data.copy()
-        new= other(xy= self.xy, layout= layout, data= data)
+        new= other(xy= self.xy, name=name, layout= layout, data= data)
         new.inputs= self.inputs.copy()
         return new
     

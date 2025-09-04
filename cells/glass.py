@@ -5,7 +5,7 @@ from .indicator import indicatorRender, numbers
 
 class glass(default):
 
-    def __init__(self, xy: tuple[int, int]|None = None, name: str = "glass", layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name: str = "G", layout=None, data=None):
         """
         xy= (x,y)
         name= cell name

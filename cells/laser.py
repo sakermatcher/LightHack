@@ -18,7 +18,7 @@ class laser(default):
             return final
         return surface.Surface((40,40), SRCALPHA)
 
-    def __init__(self, xy: tuple[int, int]|None = None, name: str = "Laser", layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name: str = "L", layout=None, data=None):
         if data is None:
             data = {"color": (0,0,0), "direction": 0}
         super().__init__(xy= xy, name= name, breaks=[1,2,3], data= data)

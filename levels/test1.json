@@ -1,8 +1,36 @@
 {
     "width": 10,
     "height": 10,
-    "pocket": {},
+    "pocket": {
+        "M": 99,
+        "P": 99,
+        "G0":99,
+        "G1":99
+    },
     "cells": {
+        "P": {
+            "type": "prism",
+            "data": {
+                "direction": 0
+            }
+        },
+        "G0": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "potency": 5,
+                "type": 0
+            }
+
+        },
+        "G1": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "potency": 5,
+                "type": 1
+            }
+        },
         "X": {
             "type": "block",
             "data": {}
@@ -64,6 +92,12 @@
                     0,
                     10
                 ]
+            }
+        },
+        "M": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
             }
         }
     },

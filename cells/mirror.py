@@ -3,14 +3,13 @@ from .default import default
 
 class mirror(default):
 
-    def __init__(self, xy: tuple[int, int]|None = None, name: str = "Mirror", layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name: str = "M", layout=None, data=None):
         """
         xy= (x,y)
         name= cell name
         layout= simple layout (if needed)
         data= dict with relevant data (direction, color, etc.)
         """
-        print(f"Data is= {data}")
         if data is None:
             data = {"direction": 0}
         super().__init__(xy= xy, name= name, breaks=[], data= data) #Breaks which walls break the beam 
