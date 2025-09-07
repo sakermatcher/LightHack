@@ -28,7 +28,7 @@ class LightHackGame:
             self.gameDisplay.blit(self.complexLayout[y][x].render(overlay=overlay), (x*80, y*80))
 
     def drawPocketCells(self):
-        for i in range(12):
+        for i in range(15):
             x = i % 3
             y = i // 3
             self.gameDisplay.blit(self.backgroundPocket, (self.levelData["width"] * 80 + 5 + x*160, y*160))
@@ -97,8 +97,6 @@ class LightHackGame:
                         self.complexLayout[y][x] = self.complexLayout[y][x].convert(cells[self.cellData[cellKey]["type"]], name=cellKey, data=self.cellData[cellKey]["data"])
                         self.pocket[cellKey] -= 1
                         self.calculate()
-                        self.placeBack(x, y)
-                        self.placeCell(x, y)
                         self.drawPocketCells()
             elif event.button == 3:
                 x, y = mouseX // 80, mouseY // 80
@@ -116,30 +114,34 @@ class LightHackGame:
             if event.key == pygame.K_w:
                 if self.selectedPocket > 2:
                     self.selectedPocket -= 3
+                elif self.selectedPocket == 0:
+                    self.selectedPocket = 12
                 elif self.selectedPocket == 1:
-                    self.selectedPocket = 9
+                    self.selectedPocket = 13
                 else:
-                    self.selectedPocket = 8
+                    self.selectedPocket = 14
                 self.drawPocketCells()
 
             elif event.key == pygame.K_s:
                 if self.selectedPocket < 12:
                     self.selectedPocket += 3
-                elif self.selectedPocket == 8:
+                elif self.selectedPocket == 12:
                     self.selectedPocket = 0
-                else:
+                elif self.selectedPocket == 13:
                     self.selectedPocket = 1
+                else:
+                    self.selectedPocket = 2
                 self.drawPocketCells()
 
             elif event.key == pygame.K_a:
                 if self.selectedPocket > 0:
                     self.selectedPocket -= 1
                 else:
-                    self.selectedPocket = 11
+                    self.selectedPocket = 14
                 self.drawPocketCells()
 
             elif event.key == pygame.K_d:
-                if self.selectedPocket < 12:
+                if self.selectedPocket < 14:
                     self.selectedPocket += 1
                 else:
                     self.selectedPocket = 0    
@@ -147,11 +149,18 @@ class LightHackGame:
 
             elif event.key == pygame.K_r:
                 x, y = mouseX // 80, mouseY // 80
+                
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.levelData["layout"][y][x] == "D":
                     now = self.complexLayout[y][x].direction
                     newDir = 0 if now == 3 else now + 1
                     self.complexLayout[y][x].changeDirection(newDir)
                     self.calculate()
+
+            elif event.key == pygame.K_f:
+                x, y = mouseX // 80, mouseY // 80
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
+                    if self.complexLayout[y][x].flip():
+                        self.calculate()
 
             elif event.key == pygame.K_e:
                 x, y = mouseX // 80, mouseY // 80

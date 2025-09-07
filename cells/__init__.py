@@ -7,9 +7,9 @@ from .glass import glass
 
 
 cells= {
+    "default": default,
     "laser": laser,
     "block": block,
-    "default": default,
     "mirror":mirror,
     "prism":prism,
     "glass":glass

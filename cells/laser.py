@@ -9,7 +9,7 @@ class laser(default):
         Renders the laser light.
         """
         state= layer["state"]
-        logging.log(50, f"Laser render called with state: {layer['state']}")
+        #logging.log(50, f"Laser render called with state: {layer['state']}")
 
         if state["color"] != (0,0,0): #Multiply state["color"] by 25.5 to get 0-255 range
             color= tuple(int((c/1.428571+3*int(bool(c)))*25.5)for c in state["color"])
@@ -39,6 +39,28 @@ class laser(default):
     def changeColor(self, color):
         self.color = color
         self.texture.update("Light", color=color)
+
+    def editProperty(self, index:int, changing:int):
+        """Edits the RGB (changing) color of the laser based on the index.
+        index (intensity of that channel) 0 = 10, None= 0, 1 = 1, 2 = 2, ...
+        changing: R= 0, G= 1, B= 2
+        """
+        if index is not None:
+            if index == 0:
+                index = 10
+            current = list(self.color)
+            current[changing] = index
+            self.color = tuple(current)
+        else:
+            current = list(self.color)
+            current[changing] = 0
+            self.color = tuple(current)
+        self.texture.update("Light", color=self.color)
+        self.texture.update("colorR", number=self.color[0])
+        self.texture.update("colorG", number=self.color[1])
+        self.texture.update("colorB", number=self.color[2])
+        return True
+
 
     def changeLight(self, From=None, color=None):
         if From is not None:

@@ -3,7 +3,7 @@ from .texturing import *
 from .default import default
 
 class block(default):
-    def __init__(self, xy: tuple[int, int]|None = None, name: str = "block", layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name: str = "X", layout=None, data=None):
         self.texture= texturing()
         super().__init__(xy= xy, name= name, breaks=[0,1,2,3], data= data)
         sorroundings= []
@@ -54,5 +54,4 @@ class block(default):
         else:
             self.texture.newLayer(0, "base", ["disabledCells/0.png"])
 
-        print(self.texture.layers)
-        logging.log(50, f"Empty cell created at {self.xy}, sorroundings: {sorroundings}")
+        #logging.log(50, f"Empty cell created at {self.xy}, sorroundings: {sorroundings}")

@@ -94,6 +94,9 @@ class default():
     def moveToPocket(self):
         self.xy = None
 
+    def editProperty(self, index:int, changing:int):
+        return False
+
     def getData(self):
         return {
             "type": self.__class__.__name__.lower(),
@@ -233,6 +236,9 @@ class default():
         new= other(xy= self.xy, name=name, layout= layout, data= data)
         new.inputs= self.inputs.copy()
         return new
+    
+    def flip(self):
+        return False
     
 
     def render(self,overlay=False, scale= (80, 80)):

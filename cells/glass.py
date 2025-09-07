@@ -57,7 +57,18 @@ class glass(default):
             self.changeBeamStates(beamDirs=[From], color= colorA)
             self.changeBeamStates(beamDirs=[self.dirFrom[From]], color= colorB)
             return {self.dirFrom[From]: tuple(min(10, color[i] + self.potency * int(bool(color[i]))) for i in range(3))}, False
-
+    
+    def editProperty(self, index, changing):
+        if index is not None:
+            if index == 0:
+                self.type = int(not bool(self.type))
+                self.texture.update("lens", index=self.type)
+            else:
+                self.potency = index
+                self.texture.update("number", number=self.potency)
+            return True
+        else:
+            return False
         
     def getData(self): #Data thats needed to be saved on level info
         data= super().getData()
