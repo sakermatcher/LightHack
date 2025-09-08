@@ -2,7 +2,7 @@ import logging
 from .texturing import *
 from .default import default
 
-class block(default):
+class xblock(default):
     def __init__(self, xy: tuple[int, int]|None = None, name: str = "X", layout=None, data=None):
         self.texture= texturing()
         super().__init__(xy= xy, name= name, breaks=[0,1,2,3], data= data)

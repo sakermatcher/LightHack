@@ -25,18 +25,26 @@ class levelMaker(LightHackGame):
 
 
 
-    def loadLevel(self, level:str):
+    def loadLevel(self, level:str, **kwargs):
         self.LevelName= level
         try:
             with open(f"levels/{level}.json", "r") as f:
                 pass
         except FileNotFoundError:
             with open(f"levels/def.json", "r") as f:
-                levelData = json.load(f)
+                self.levelData = json.load(f)
+            self.levelData["width"]= kwargs["width"] if "width" in kwargs else 10
+            self.levelData["height"]= kwargs["height"] if "height" in kwargs else 10
+            for y in range(self.levelData["height"]):
+                self.levelData["layout"].append(["D"]*self.levelData["width"])
+                for x in range(self.levelData["width"]):
+                    if y == 0 or y == self.levelData["height"]-1 or x == 0 or x == self.levelData["width"]-1:
+                        self.levelData["layout"][y][x] = "X"
+
             with open(f"levels/{level}.json", "w+") as f:
-                json.dump(levelData, f, indent=4)
+                json.dump(self.levelData, f, indent=4)
         super().load(level)
-        self.min_height= self.min_height + 160
+        self.min_height= self.min_height + 80
         self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
 
     def drawSelectedCells(self):
@@ -79,7 +87,7 @@ class levelMaker(LightHackGame):
             mouseX, mouseY = pygame.mouse.get_pos()
             if event.key == pygame.K_SPACE:
                 x, y = mouseX // 80, mouseY // 80
-                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D" and self.simpleLayout[y][x] != "B":
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D" and self.simpleLayout[y][x] != "X":
                     if (x, y) in self.toPocket[0]:
                         self.toPocket[1].remove(self.complexLayout[y][x])
                         self.toPocket[0].remove((x, y))
@@ -96,6 +104,12 @@ class levelMaker(LightHackGame):
                     newDir = 0 if now == 3 else now + 1
                     self.complexLayout[y][x].changeDirection(newDir)
                     self.calculate()
+            
+            elif event.key == pygame.K_f:
+                x, y = mouseX // 80, mouseY // 80
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
+                    if self.complexLayout[y][x].flip():
+                        self.calculate()
 
             elif event.key == pygame.K_w:
                 if self.selectedPocket > 0:
@@ -114,13 +128,13 @@ class levelMaker(LightHackGame):
                 return False
 
             elif event.key == pygame.K_a:
-                if self.selectedCell >= 0:
+                if self.selectedCell > 0:
                     self.selectedCell -= 1
                 self.drawSelectedCells()
                 return False
 
             elif event.key == pygame.K_d:
-                if self.selectedCell < len(self.cellData) - 1:
+                if self.selectedCell < len(cells) - 2:
                     self.selectedCell += 1
                 self.drawSelectedCells()
                 return False
@@ -150,8 +164,10 @@ class levelMaker(LightHackGame):
                 return False
         
             elif event.key == pygame.K_q:
-                del(self.pocket[list(self.pocket.keys())[self.selectedPocket]])
-                self.drawPocketCells()
+                if self.selectedPocket < len(self.pocket):
+                    self.pocket[list(self.pocket.keys())[self.selectedPocket]] += 1
+                    del(self.pocket[list(self.pocket.keys())[self.selectedPocket]])
+                    self.drawPocketCells()
                 return False
 
             elif event.key == pygame.K_ESCAPE:
@@ -188,13 +204,23 @@ class levelMaker(LightHackGame):
                                 newData[1].append(0)
                                 newData[2].append(self.complexLayout[y][x].getData())
                                 print(newData[0][-1])
-                                self.simpleLayout[y][x] = [newData[0][-1]]
+                                self.simpleLayout[y][x] = newData[0][-1]
                             else:
                                 index= newData[2].index(self.complexLayout[y][x].getData())
                                 self.simpleLayout[y][x] = newData[0][index].upper()
                 for i in range(len(newData[0])):
-                    self.pocket[newData[0][i]]= newData[1][i]
+                    if newData[1][i] > 0:
+                        self.pocket[newData[0][i]]= newData[1][i]
                     self.cellData[newData[0][i]]= newData[2][i]
+                
+                self.cellData["X"]= {
+                        "type": "block",
+                        "data": {}
+                }
+                self.cellData["D"]= {
+                        "type": "default",
+                        "data": {}
+                }
 
                 with open(f"levels/{self.LevelName}.json", "w") as f:
                     json.dump({
@@ -204,6 +230,8 @@ class levelMaker(LightHackGame):
                         "cells": self.cellData,
                         "layout": self.simpleLayout
                     }, f, indent=4)
+
+                return False
 
 
 
@@ -221,6 +249,6 @@ class levelMaker(LightHackGame):
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("test1")
+    game.loadLevel("lvl1", width=10, height=10)
     game.drawSelectedCells()
     game.play()

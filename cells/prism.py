@@ -74,18 +74,21 @@ class prism(default):
                 else:
                     return {self.convDir(0):outColor}, False
 
-    def restart(self):
-        super().restart()
-
     def flip(self):
         self.texture.update("prism", index=1 if not self.flipped else 0)
         self.flipped= not self.flipped
         return True
 
-    def getData(self): #Data thats needed to be saved on level info
+    def getData(self, pocket=False): #Data thats needed to be saved on level info
         data= super().getData()
+        if pocket:
+            data["data"]= {
+                "direction": 0,
+                "flipped": 0
+            }
+            return data
         data["data"]= {
             "direction": self.direction,
-            "flipped": False
+            "flipped": self.flipped
         }
         return data

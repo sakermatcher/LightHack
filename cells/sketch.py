@@ -12,7 +12,7 @@ class myName(default):
         data= dict with relevant data (direction, color, etc.)
         """
         if data is None:
-            data = {"color": (0,0,0), "direction": 0}
+            data = {"direction": 0}
         super().__init__(xy= xy, name= name, breaks=[0,1,2,3], data= data) #Breaks which walls break the beam 
         self.texture.newLayer(layer=3, name="layerName", textures=["textureLocation"], state={"index": 0, "direction": data["direction"]})
 
@@ -26,8 +26,13 @@ class myName(default):
         else:
             return {[2,3,0,1][self.direction]:color}, False
 
-    def getData(self): #Data thats needed to be saved on level info
+    def getData(self, pocket= False): #Data thats needed to be saved on level info
         data= super().getData()
+        if pocket:
+            data["data"]= {
+                "direction": 0
+            }
+            return data
         data["data"]= {
             "direction": self.direction
         }

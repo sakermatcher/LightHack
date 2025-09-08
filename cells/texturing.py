@@ -33,11 +33,13 @@ class texturing():
         #logging.log(51, f"Default render called with state: {layer['state']}")
         if "direction" not in layer["state"]:
             layer["state"]["direction"]= 0
-        if layer["state"]["index"] is None:
+        if layer["state"]["index"] is -1:
             final= surface.Surface((40,40), SRCALPHA)
             for img in layer["textures"]:
                 final.blit(img, (0,0))
             return transform.rotate(final, [0,90,180,270][layer["state"]["direction"]])
+        elif layer["state"]["index"] == None:
+            return surface.Surface((40,40), SRCALPHA)
         return transform.rotate(layer["textures"][layer["state"]["index"]], [0,90,180,270][layer["state"]["direction"]])
 
     def newLayer(self, layer:int, name:str, textures:list[str], renderer:callable=defaultRender, state:dict=None):

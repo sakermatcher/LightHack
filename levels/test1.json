@@ -2,51 +2,42 @@
     "width": 10,
     "height": 10,
     "pocket": {
-        "M0": 7,
-        "G0": 1,
-        "G1": 1,
-        "M1": 4,
-        "P1": 1
+        "M": 99,
+        "P": 99,
+        "G0":99,
+        "G1":99
     },
     "cells": {
-        "M0": {
-            "type": "mirror",
+        "F": {
+            "type": "final",
             "data": {
-                "direction": 1
-            },
-            "direction": 0
+                "direction": 0,
+                "final": false,
+                "color": [10,10,5]
+            }
+        },
+        "P": {
+            "type": "prism",
+            "data": {
+                "direction": 0
+            }
         },
         "G0": {
             "type": "glass",
             "data": {
                 "direction": 0,
-                "type": 1,
-                "potency": 1
-            },
-            "direction": 0
-        },
-        "P0": {
-            "type": "prism",
-            "data": {
-                "direction": 3,
-                "flipped": false
+                "potency": 5,
+                "type": 0
             }
+
         },
         "G1": {
             "type": "glass",
             "data": {
                 "direction": 0,
-                "type": 0,
-                "potency": 3
-            },
-            "direction": 0
-        },
-        "M1": {
-            "type": "mirror",
-            "data": {
-                "direction": 0
-            },
-            "direction": 0
+                "potency": 5,
+                "type": 1
+            }
         },
         "X": {
             "type": "block",
@@ -56,23 +47,65 @@
             "type": "default",
             "data": {}
         },
-        "P1": {
-            "type": "prism",
-            "data": {
-                "direction": 2,
-                "flipped": false
-            },
-            "direction": 0
-        },
         "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    10,
+                    0,
+                    10
+                ]
+            }
+        },
+        "L1": {
             "type": "laser",
             "data": {
                 "direction": 1,
                 "color": [
-                    7,
-                    5,
+                    0,
+                    9,
                     0
                 ]
+            }
+        },
+        "L2": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    1,
+                    0
+                ]
+            }
+        },
+        "L3": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    10,
+                    0,
+                    0
+                ]
+            }
+        },
+        "L4": {
+            "type": "laser",
+            "data": {
+                "direction": 1,
+                "color": [
+                    0,
+                    0,
+                    10
+                ]
+            }
+        },
+        "M": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
             }
         }
     },
@@ -93,18 +126,6 @@
             "X",
             "D",
             "D",
-            "P0",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X",
-            "X"
-        ],
-        [
-            "X",
-            "D",
-            "D",
             "D",
             "D",
             "D",
@@ -118,18 +139,6 @@
             "D",
             "D",
             "D",
-            "X",
-            "X",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "X",
-            "X",
-            "X",
-            "X",
             "D",
             "D",
             "D",
@@ -139,50 +148,74 @@
         ],
         [
             "X",
-            "D",
-            "D",
-            "X",
-            "D",
-            "X",
-            "X",
-            "D",
-            "X",
-            "X"
-        ],
-        [
-            "X",
-            "X",
-            "X",
-            "X",
-            "D",
-            "X",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "X",
-            "D",
-            "D",
-            "X",
-            "D",
-            "X",
-            "D",
-            "X",
-            "X",
-            "X"
-        ],
-        [
-            "X",
-            "X",
-            "D",
-            "X",
-            "X",
-            "X",
-            "D",
             "D",
             "L0",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "L3",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L1",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "F",
+            "D",
+            "D",
+            "D",
+            "L4",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L2",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
             "X"
         ],
         [

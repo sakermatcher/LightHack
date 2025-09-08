@@ -158,7 +158,7 @@ class LightHackGame:
 
             elif event.key == pygame.K_f:
                 x, y = mouseX // 80, mouseY // 80
-                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.levelData["layout"][y][x] == "D":
                     if self.complexLayout[y][x].flip():
                         self.calculate()
 
@@ -169,9 +169,6 @@ class LightHackGame:
 
             elif event.key == pygame.K_DELETE: #TODO: PAUSE MENU def
                 return True
-
-            elif event.key == pygame.K_q:
-                pass
 
         return False
 
@@ -293,5 +290,5 @@ class LightHackGame:
 if __name__ == "__main__":
     while True:
         game = LightHackGame()
-        game.load("test1")
+        game.load("lvl1")
         game.play()

@@ -70,8 +70,13 @@ class mirror(default):
 
             return {[[3,2,1,0],[1,0,3,2]][self.direction][From]:color}, False
         
-    def getData(self): #Data thats needed to be saved on level info
+    def getData(self, pocket=False): #Data thats needed to be saved on level info
         data= super().getData()
+        if pocket:
+            data["data"]= {
+                "direction": 0
+            }
+            return data
         data["data"]= {
             "direction": self.direction
         }

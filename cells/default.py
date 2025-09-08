@@ -97,7 +97,7 @@ class default():
     def editProperty(self, index:int, changing:int):
         return False
 
-    def getData(self):
+    def getData(self, pocket=False):
         return {
             "type": self.__class__.__name__.lower(),
             "data": {}

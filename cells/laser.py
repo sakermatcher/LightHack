@@ -24,7 +24,7 @@ class laser(default):
         super().__init__(xy= xy, name= name, breaks=[1,2,3], data= data)
         self.texture.newLayer(3, "Laser", ["laser/main.png"], state={"index": 0, "direction": data["direction"]})
         self.texture.newLayer(4, "Light", ["laser/light.png"], renderer=self.renderLaser, state={"color": data["color"], "direction": data["direction"]})
-        self.texture.newLayer(5, "screens", ["indicators/UL.png", "indicators/UR.png", "indicators/DL.png"], state={"index": None})
+        self.texture.newLayer(5, "screens", ["indicators/UL.png", "indicators/UR.png", "indicators/DL.png"], state={"index": -1})
         self.color = tuple(data["color"])
         self.texture.newLayer(6, "colorR", numbers, state={"corner": "UL", "color": (255,50,50), "number": self.color[0]}, renderer=indicatorRender)
         self.texture.newLayer(7, "colorG", numbers, state={"corner": "UR", "color": (50,255,50), "number": self.color[1]}, renderer=indicatorRender)
@@ -35,10 +35,6 @@ class laser(default):
         self.texture.update("Laser", direction=direction)
         self.texture.update("Light", direction=direction)
         return super().changeDirection(direction)
-
-    def changeColor(self, color):
-        self.color = color
-        self.texture.update("Light", color=color)
 
     def editProperty(self, index:int, changing:int):
         """Edits the RGB (changing) color of the laser based on the index.
@@ -68,8 +64,14 @@ class laser(default):
         else:
             return self.direction, self.color 
 
-    def getData(self):
+    def getData(self, pocket=False):
         data= super().getData()
+        if pocket:
+            data["data"]= {
+                "direction": 0,
+                "color": self.color
+            }
+            return data
         data["data"]= {
             "direction": self.direction,
             "color": self.color

@@ -69,9 +69,17 @@ class glass(default):
             return True
         else:
             return False
-        
-    def getData(self): #Data thats needed to be saved on level info
+
+    def getData(self, pocket=False): #Data thats needed to be saved on level info
         data= super().getData()
+        if pocket:
+            data["data"]= {
+                "direction": 0,
+                "type": self.type,
+                "potency": self.potency
+            }
+            return data
+        
         data["data"]= {
             "direction": self.direction,
             "type": self.type,

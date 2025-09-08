@@ -1,8 +1,16 @@
 {
     "width": 10,
     "height": 10,
-    "pocket": {
+    "pocket": {},
+    "cells": {
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
     },
-    "cells": {},
     "layout": []
 }
