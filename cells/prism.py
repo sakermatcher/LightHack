@@ -64,15 +64,23 @@ class prism(default):
             if not self.flipped:
                 outColor=tuple(self.inputs[self.convDir(3 - i)][i] for i in range(3))
                 if outColor == self.pastOutput:
+                    self.pastOutput= colors
                     return {}, True
                 else:
+                    self.pastOutput= colors
                     return {self.convDir(0):outColor}, False
             else:
                 outColor=tuple(self.inputs[self.convDir(i + 1)][i] for i in range(3))
                 if outColor == self.pastOutput:
+                    self.pastOutput= colors
                     return {}, True
                 else:
+                    self.pastOutput= colors
                     return {self.convDir(0):outColor}, False
+                
+    def restart(self):
+        self.pastOutput= (0,0,0)
+        return super().restart()
 
     def flip(self):
         self.texture.update("prism", index=1 if not self.flipped else 0)

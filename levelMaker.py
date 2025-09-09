@@ -68,6 +68,8 @@ class levelMaker(LightHackGame):
                     cellKey = list(cells.keys())
                     cellKey.remove("default")
                     cellKey= cellKey[self.selectedCell]
+                    if cellKey == "block":
+                        cellKey= "X"
                     self.complexLayout[y][x] = self.complexLayout[y][x].convert(other=cells[cellKey], name=cellKey)
                     self.simpleLayout[y][x] = cellKey[0].upper()
                     self.calculate()
@@ -184,8 +186,7 @@ class levelMaker(LightHackGame):
                     for x in range(self.levelData["width"]):
                         if (x, y) in self.toPocket[0]:
                             i = self.toPocket[0].index((x, y))
-                            data= self.toPocket[1][i].getData().copy()
-                            data["direction"]= 0
+                            data= self.toPocket[1][i].getData(True).copy()
                             if data not in newData[2]:
                                 newData[0].append(self.makeId(self.simpleLayout[y][x][0], newData[0]))
                                 newData[1].append(1)
@@ -249,6 +250,6 @@ class levelMaker(LightHackGame):
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("lvl1", width=10, height=10)
+    game.loadLevel("tut5", width=10, height=10)
     game.drawSelectedCells()
     game.play()

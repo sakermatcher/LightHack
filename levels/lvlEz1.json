@@ -1,0 +1,194 @@
+{
+    "width": 10,
+    "height": 10,
+    "pocket": {
+        "M1": 2,
+        "G0": 1,
+        "M2": 7
+    },
+    "cells": {
+        
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    5,
+                    0,
+                    5
+                ]
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 1,
+                "final": 1,
+                "color": [
+                    10,
+                    0,
+                    10
+                ]
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "M1": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            },
+            "direction": 0
+        },
+        "G0": {
+            "type": "glass",
+            "data": {
+                "direction": 1,
+                "type": 0,
+                "potency": 5
+            },
+            "direction": 0
+        },
+        "M2": {
+            "type": "mirror",
+            "data": {
+                "direction": 1
+            },
+            "direction": 0
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "L0",
+            "X",
+            "D",
+            "D",
+            "F0",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "M0",
+            "D",
+            "X",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}

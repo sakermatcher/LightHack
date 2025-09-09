@@ -98,9 +98,19 @@ class default():
         return False
 
     def getData(self, pocket=False):
+        if pocket:
+            return {
+                "type": self.__class__.__name__.lower(),
+                "data": {
+                    "direction": 0
+                }
+            }
+        
         return {
             "type": self.__class__.__name__.lower(),
-            "data": {}
+            "data": {
+                "direction": self.direction
+            }
         }
     
     def changeBeamStates(self, vertical=False, beamDirs=None, **states):

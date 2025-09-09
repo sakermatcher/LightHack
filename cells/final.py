@@ -109,7 +109,7 @@ class final(default):
         data= super().getData()
         data["data"]= {
             "direction": self.direction,
-            "final": int(self.final),
+            "final": self.final,
             "color": self.color
         }
         return data

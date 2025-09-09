@@ -54,8 +54,6 @@ class LightHackGame:
                 indicator.blit(multiply(self.numbers[0], (255,155,0)), (23, 33))
                 self.gameDisplay.blit(pygame.transform.scale(indicator, (160, 160)), (self.levelData["width"] * 80 + 5 + x*160, y*160))
 
-
-
     def beam(self, startX, startY, Dir, color):
         dx, dy = [0, -1, 0, 1][Dir], [-1, 0, 1, 0][Dir]
         x, y = startX + dx, startY + dy
@@ -84,6 +82,7 @@ class LightHackGame:
                     self.beam(x, y, Dir, color)
                 self.placeBack(x, y)
                 self.placeCell(x, y)
+
         pygame.display.update()
 
     def keyHandler(self, event):
@@ -96,8 +95,8 @@ class LightHackGame:
                     if self.pocket[cellKey] > 0 and self.complexLayout[y][x].name == "D":
                         self.complexLayout[y][x] = self.complexLayout[y][x].convert(cells[self.cellData[cellKey]["type"]], name=cellKey, data=self.cellData[cellKey]["data"])
                         self.pocket[cellKey] -= 1
-                        self.calculate()
                         self.drawPocketCells()
+                        self.calculate()
             elif event.button == 3:
                 x, y = mouseX // 80, mouseY // 80
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
@@ -169,6 +168,19 @@ class LightHackGame:
 
             elif event.key == pygame.K_DELETE: #TODO: PAUSE MENU def
                 return True
+            
+        for f in self.finals:
+            if not f.isCompleated:
+                break
+        else:
+            print("Level Compleated!")
+            font = pygame.font.SysFont('Arial', 64)
+            text = font.render('Level Compleated!', True, (255, 255, 255))
+            text_rect = text.get_rect(center=(self.min_width // 2, self.min_height // 2))
+            self.gameDisplay.blit(text, text_rect)
+            pygame.display.update()
+            sleep(3)
+            return True
 
         return False
 
@@ -200,6 +212,7 @@ class LightHackGame:
         self.cellData = self.levelData["cells"]
         self.pocket = self.levelData["pocket"]
         self.complexLayout = []
+        self.finals= []
 
         for y, row in enumerate(self.simpleLayout):
             self.complexLayout.append([])
@@ -212,6 +225,8 @@ class LightHackGame:
                         data=self.cellData[cell]["data"]
                     )
                 )
+                if cell[0] == "F":
+                    self.finals.append(self.complexLayout[y][-1])
 
         self.gameDisplay.fill((0, 75, 85))
 
@@ -237,20 +252,17 @@ class LightHackGame:
         pygame.display.update()
 
     def play(self):
-        clock = pygame.time.Clock()
         pastCol = None
         pastRow = None
         out = False
         while not out:
-            # Show fps
-            fps = clock.get_fps()
-            pygame.display.set_caption(f"FPS: {fps:.2f}")
-            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
                 out= self.keyHandler(event)
+                if out:
+                    break
 
             # ---------- CELL HIGHLIGHT -------------
             mouseX, mouseY = pygame.mouse.get_pos()
