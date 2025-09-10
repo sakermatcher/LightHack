@@ -68,9 +68,9 @@ class levelMaker(LightHackGame):
                     cellKey = list(cells.keys())
                     cellKey.remove("default")
                     cellKey= cellKey[self.selectedCell]
+                    self.complexLayout[y][x] = self.complexLayout[y][x].convert(other=cells[cellKey], name=cellKey)
                     if cellKey == "block":
                         cellKey= "X"
-                    self.complexLayout[y][x] = self.complexLayout[y][x].convert(other=cells[cellKey], name=cellKey)
                     self.simpleLayout[y][x] = cellKey[0].upper()
                     self.calculate()
                 return False
@@ -246,10 +246,10 @@ class levelMaker(LightHackGame):
                                 self.calculate()
                             return False
 
-        return super().keyHandler(event)
+        return False
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("tut5", width=10, height=10)
+    game.loadLevel("tutorials/tut1", width=10, height=10)
     game.drawSelectedCells()
     game.play()

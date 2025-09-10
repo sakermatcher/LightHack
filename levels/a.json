@@ -2,19 +2,20 @@
     "width": 10,
     "height": 10,
     "pocket": {
-        "M1": 9,
-        "G0": 1
+        "M0": 6,
+        "P0": 2,
+        "G0": 1,
+        "G1": 1
     },
     "cells": {
-        
         "L0": {
             "type": "laser",
             "data": {
                 "direction": 2,
                 "color": [
-                    5,
-                    0,
-                    5
+                    4,
+                    9,
+                    7
                 ]
             }
         },
@@ -22,11 +23,23 @@
             "type": "final",
             "data": {
                 "direction": 1,
-                "final": 1,
+                "final": true,
                 "color": [
-                    10,
                     0,
-                    10
+                    0,
+                    7
+                ]
+            }
+        },
+        "F1": {
+            "type": "final",
+            "data": {
+                "direction": 1,
+                "final": true,
+                "color": [
+                    3,
+                    1,
+                    0
                 ]
             }
         },
@@ -36,21 +49,40 @@
                 "direction": 0
             }
         },
-        "M1": {
-            "type": "mirror",
+        "P0": {
+            "type": "prism",
             "data": {
-                "direction": 0
-            },
-            "direction": 0
+                "direction": 0,
+                "flipped": 0
+            }
+        },
+        "F2": {
+            "type": "final",
+            "data": {
+                "direction": 1,
+                "final": false,
+                "color": [
+                    0,
+                    9,
+                    0
+                ]
+            }
         },
         "G0": {
             "type": "glass",
             "data": {
                 "direction": 0,
+                "type": 1,
+                "potency": 2
+            }
+        },
+        "G1": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
                 "type": 0,
-                "potency": 5
-            },
-            "direction": 0
+                "potency": 1
+            }
         },
         "X": {
             "type": "block",
@@ -76,36 +108,12 @@
         ],
         [
             "X",
-            "D",
-            "D",
             "X",
             "L0",
             "X",
-            "D",
-            "D",
             "F0",
-            "X"
-        ],
-        [
             "X",
-            "D",
-            "D",
-            "X",
-            "D",
-            "X",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "X",
-            "X",
-            "X",
-            "X",
-            "M0",
-            "D",
-            "X",
+            "F1",
             "X",
             "D",
             "X"
@@ -115,10 +123,10 @@
             "D",
             "D",
             "X",
-            "X",
             "D",
             "X",
             "D",
+            "X",
             "D",
             "X"
         ],
@@ -126,31 +134,7 @@
             "X",
             "D",
             "D",
-            "X",
             "D",
-            "D",
-            "X",
-            "D",
-            "X",
-            "X"
-        ],
-        [
-            "X",
-            "X",
-            "X",
-            "X",
-            "D",
-            "X",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "X",
-            "D",
-            "D",
-            "X",
             "D",
             "X",
             "D",
@@ -163,10 +147,58 @@
             "D",
             "D",
             "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "F2",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
             "D",
             "D",
             "D",
             "D",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "X",
+            "X",
+            "X",
+            "X",
             "D",
             "X"
         ],

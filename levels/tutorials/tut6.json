@@ -35,7 +35,7 @@
         "G0": {
             "type": "glass",
             "data": {
-                "direction": 1,
+                "direction": 0,
                 "type": 0,
                 "potency": 5
             }

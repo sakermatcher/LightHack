@@ -300,7 +300,6 @@ class LightHackGame:
             pygame.display.update()
 
 if __name__ == "__main__":
-    while True:
-        game = LightHackGame()
-        game.load("lvl1")
-        game.play()
+    game = LightHackGame()
+    game.load("a")
+    game.play()
