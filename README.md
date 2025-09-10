@@ -26,7 +26,7 @@ LightHack is a puzzle game developed as a university project at Tec de Monterrey
 
 3. **Run the game:**
    ```sh
-   python play.py
+   python main.py
    ```
 
 ## How to Play
@@ -34,17 +34,16 @@ LightHack is a puzzle game developed as a university project at Tec de Monterrey
 - **Objective:** Use lasers to direct colored beams to targets by placing and rotating cells.
 - **Controls:**
     *Note that this controls are temporary for testing purposes, until a proper menu and control scheme is implemented.*
-  - Mouse: Select and place cells.
+  - Mouse:
+    -`Left Click`: Place Cell.
+    -`Right Click`: Remove Cell.
   - Keyboard:
-    - `SPACE`: Convert cell to mirror.
-    - `E`: Convert cell to prism.
-    - `W`: Convert cell to glass.
-    - `A`: Place special glass.
+    - `E`: See beam values.
+    - `WASD`: Move pocket selection.
     - `R`: Rotate cell.
-    - `Q`: Reset cell to default.
-    - `TAB`: Highlight cell.
+    - `F`: Flip prism (Red and blue sides).
     - `DELETE`: Exit level.
-- **Level Editor:** Run `python levelMaker.py` to design custom levels.
+- **Level Editor:** Run `python levelMaker.py` to design custom levels, at the bottom of the file is where you can write the name of your custom level.
 
 ## Project Structure
 
@@ -54,6 +53,7 @@ LightHack/
 ├── cells/            # Cell logic and rendering
 ├── levels/           # Level data (JSON)
 ├── play.py           # Main game loop
+├── main.py           # Main menu to choose level
 ├── levelMaker.py     # Level editor
 ├── README.md         # This file
 └── ...
@@ -70,7 +70,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## Credits
 
 - Developed by Juan Pablo Pagán for Tec de Monterrey Campus Puebla.
-- Special thanks to all contributors and testers.
+- Special thanks to all contributors and testers!
 
 ---
 Enjoy bending light and solving puzzles!
