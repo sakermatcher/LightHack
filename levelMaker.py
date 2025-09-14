@@ -232,9 +232,8 @@ class levelMaker(LightHackGame):
                         "layout": self.simpleLayout
                     }, f, indent=4)
 
+            
                 return False
-
-
 
             else:
                 for num in range(pygame.K_0, pygame.K_9 + 1):
@@ -246,10 +245,13 @@ class levelMaker(LightHackGame):
                                 self.calculate()
                             return False
 
+        self.finals= [cells["final"](data={"color":(11,11,11), "direction":0})]
+        super().keyHandler(event)
         return False
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("tutorials/tut1", width=10, height=10)
+    game.loadLevel("b", width=10, height=10)
+    pygame.mixer.quit()
     game.drawSelectedCells()
     game.play()

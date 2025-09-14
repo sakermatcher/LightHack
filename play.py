@@ -62,6 +62,9 @@ class LightHackGame:
             self.placeBack(x, y)
             self.placeCell(x, y)
             x, y = x + dx, y + dy
+            if x < 0 or y < 0 or x >= self.levelData["width"] or y >= self.levelData["height"]:
+                x, y = x - dx, y - dy
+                return
 
         newLights, rtrn = self.complexLayout[y][x].changeLight(From=[2, 3, 0, 1][Dir], color=color)
         self.placeBack(x, y)
@@ -75,9 +78,9 @@ class LightHackGame:
             for x in range(len(self.complexLayout[0])):
                 self.complexLayout[y][x].restart()
 
-        for y in range(len(self.simpleLayout)):
-            for x in range(len(self.simpleLayout[0])):
-                if self.simpleLayout[y][x][0] == "L":
+        for y in range(len(self.complexLayout)):
+            for x in range(len(self.complexLayout[0])):
+                if self.complexLayout[y][x] == "L":
                     Dir, color = self.complexLayout[y][x].changeLight()
                     self.beam(x, y, Dir, color)
                 self.placeBack(x, y)
@@ -97,6 +100,11 @@ class LightHackGame:
                         self.pocket[cellKey] -= 1
                         self.drawPocketCells()
                         self.calculate()
+                else:
+                    x, y= (mouseX - (self.levelData["width"] * 80 + 5)) // 160, mouseY // 160
+                    if x >= 0 and y >= 0 and x < 3 and y < 5 and (y * 3 + x) < len(self.pocket):
+                        self.selectedPocket = y * 3 + x
+                        self.drawPocketCells()
             elif event.button == 3:
                 x, y = mouseX // 80, mouseY // 80
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
@@ -173,7 +181,6 @@ class LightHackGame:
             if not f.isCompleated:
                 break
         else:
-            print("Level Compleated!")
             font = pygame.font.SysFont('Arial', 64)
             text = font.render('Level Compleated!', True, (255, 255, 255))
             text_rect = text.get_rect(center=(self.min_width // 2, self.min_height // 2))
@@ -195,6 +202,11 @@ class LightHackGame:
             return
         
         pygame.init()
+        # --- MUSIC ---
+        pygame.mixer.init()
+        pygame.mixer.music.load("assets/lightHackV1.mp3")
+        pygame.mixer.music.play(-1)  # Loop indefinitely
+        # --- END MUSIC ---
         self.min_width = self.levelData["width"] * 80 + 485
         self.min_height = self.levelData["height"] * 80
         self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
@@ -301,5 +313,5 @@ class LightHackGame:
 
 if __name__ == "__main__":
     game = LightHackGame()
-    game.load("a")
+    game.load("hard/b")
     game.play()
