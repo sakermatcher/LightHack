@@ -62,7 +62,7 @@ class laser(default):
         if From is not None:
             return super().changeLight(From, color)
         else:
-            return self.direction, self.color 
+            return {self.direction: self.color}, False
 
     def getData(self, pocket=False):
         data= super().getData()

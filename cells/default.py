@@ -68,7 +68,7 @@ class default():
         else:
             return surface.Surface((40,40), SRCALPHA)
 
-    def __init__(self, xy: tuple[int, int]|None, name:str="D", breaks=None, layout=None, data=None):
+    def __init__(self, xy: tuple[int, int]|None = None, name:str="D", breaks=None, layout=None, data=None):
         self.texture= texturing()
         self.xy = xy
         self.name = name
@@ -87,12 +87,6 @@ class default():
 
     def changeDirection(self, direction: int):
         self.direction = direction
-
-    def changePos(self, xy: tuple[int, int]):
-        self.xy = xy
-    
-    def moveToPocket(self):
-        self.xy = None
 
     def editProperty(self, index:int, changing:int):
         return False
@@ -249,7 +243,6 @@ class default():
     
     def flip(self):
         return False
-    
 
     def render(self,overlay=False, scale= (80, 80)):
         if overlay:

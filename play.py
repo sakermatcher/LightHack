@@ -81,8 +81,10 @@ class LightHackGame:
         for y in range(len(self.complexLayout)):
             for x in range(len(self.complexLayout[0])):
                 if self.complexLayout[y][x] == "L":
-                    Dir, color = self.complexLayout[y][x].changeLight()
-                    self.beam(x, y, Dir, color)
+                    newLights, rtrn = self.complexLayout[y][x].changeLight()
+                    if rtrn is not True:
+                        for Dir, color in newLights.items():
+                            self.beam(x, y, Dir, color)
                 self.placeBack(x, y)
                 self.placeCell(x, y)
 
@@ -257,8 +259,13 @@ class LightHackGame:
         for y in range(len(self.simpleLayout)):
             for x in range(len(self.simpleLayout[0])):
                 if self.simpleLayout[y][x][0] == "L":
-                    Dir, color = self.complexLayout[y][x].changeLight()
-                    self.beam(x, y, Dir, color)
+                    newLights, rtrn = self.complexLayout[y][x].changeLight()
+                    if rtrn is not True:
+                        for Dir, color in newLights.items():
+                            self.beam(x, y, Dir, color)
+
+
+                        self.beam(x, y, Dir, color)
 
         self.drawPocketCells()
         pygame.display.update()

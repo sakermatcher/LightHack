@@ -3,6 +3,9 @@ import json
 from play import LightHackGame
 from cells import cells
 from cells.texturing import multiply
+from cells.level import level
+
+cells["level"]= level
 
 class levelMaker(LightHackGame):
     def __init__(self):
@@ -251,7 +254,7 @@ class levelMaker(LightHackGame):
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("b", width=10, height=10)
+    game.loadLevel("section1", width=15, height=10)
     pygame.mixer.quit()
     game.drawSelectedCells()
     game.play()
