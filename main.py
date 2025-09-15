@@ -112,12 +112,12 @@ class menu(LightHackGame):
 
             pygame.display.update()
 
-if __name__ == "__main__":
+if __name__ == "":
     game = menu()
     game.load()
     game.play()
 
-if __name__ == "":
+if __name__ == "__main__":
     while True:
         pygame.init()
         menu= pygame.display.set_mode((1000,800))
@@ -155,7 +155,7 @@ if __name__ == "":
                     game.gameDisplay.blit(text, (10, game.min_height + 10 + j * 20))
                 game.play()
         elif out == "lvl":
-            for i in ["lvlEz1", "a", "lvlHard1"]:
+            for i in ["setion1/lvlEz1", "setion1/a", "setion1/lvlHard1", "setion1/b"]:
                 game = LightHackGame()
                 game.load(i)
                 game.play()
