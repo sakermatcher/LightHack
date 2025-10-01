@@ -33,7 +33,7 @@ class texturing():
         #logging.log(51, f"Default render called with state: {layer['state']}")
         if "direction" not in layer["state"]:
             layer["state"]["direction"]= 0
-        if layer["state"]["index"] is -1:
+        if layer["state"]["index"] == -1:
             final= surface.Surface((40,40), SRCALPHA)
             for img in layer["textures"]:
                 final.blit(img, (0,0))

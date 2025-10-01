@@ -2,6 +2,7 @@ from play import LightHackGame
 import pygame
 from cells import cells
 from cells.level import level
+from cells.indicator import numbers
 import json
 
 tutTxt=[
@@ -17,52 +18,103 @@ tutTxt=[
 
 class menu(LightHackGame):
     def __init__(self):
-        super().__init__()
-        self.save_data = json.load(open("save.json"))
+        self.complexLayout = []
+        self.gameDisplay = None
+        self.background = None
+        self.backgroundPocket = None
+        self.highlightPocket = None
+        self.simpleLayout = None
+        self.cellData = None
+        self.pocket = None
+        self.levelData = None
+        self.selectedPocket = 0
 
-    def makeLayout(self):
-        self.bottom= []
+    def keyHandler(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN :
+            mouseX, mouseY = pygame.mouse.get_pos()
+            x, y = mouseX // 80, mouseY // 80
+            if event.button == 1:
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
+                    if self.complexLayout[y][x].name == "L":
+                        self.complexLayout[y][x].unlock()
+                        self.calculate()
 
-    def placeCell(self, x, y):
-        self.gameDisplay.blit(self.complexLayout[y][x].render(), (x*80, y*80 + 130))
+        return False
 
-    def placeBack(self, x, y):
-        self.gameDisplay.blit(self.background, (x*80, y*80 + 130))
+    def load(self, levelName):
+        try:
+            self.levelData = json.load(open(f"levels/{levelName}.json", "r"))
+        except FileNotFoundError:
+            print("Level not found")
+            return
 
-    def load(self):
-        self.difficulties= json.load(open("save.json"))
-        self.levelData= {
-            "width": 10,
-            "height": 10
-        }
         pygame.init()
-        self.gameDisplay = pygame.display.set_mode((1050, 1000))
-        self.lastHeight, self.lastWidth = 1000, 1050
-        self.min_height= 1000
-        self.min_width= 1050
-        self.background = pygame.Surface((80, 80))
-        self.background.fill((25,25,0))
-        pygame.display.set_caption("LightHack Menu")
-        #self.button= pygame.image.load("assets/menu/button.png").convert_alpha()
-        #self.active= pygame.image.load("assets/menu/active.png").convert_alpha()
-        self.highlight= pygame.image.load("assets/menu/highlight.png").convert_alpha()
-        self.highlight= pygame.transform.scale(self.highlight, (80, 80))
-        self.finals= [cells["final"](xy=(0,0), name="F", data={"direction": 0, "color": (10,10,10)})]
+        # --- MUSIC ---
+        pygame.mixer.init()
+        pygame.mixer.music.load("assets/lightHackV1.mp3")
+        pygame.mixer.music.play(-1)  # Loop indefinitely
+        # --- END MUSIC ---
+        self.min_width = self.levelData["width"] * 80
+        self.min_height = self.levelData["height"] * 80
+        self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
+        self.background = pygame.image.load("assets/background.png")
+        self.backgroundPocket = pygame.transform.scale(self.background, (160, 160))
+        self.background = pygame.transform.scale(self.background, (80, 80))
+        self.qty = pygame.image.load("assets/indicators/qty.png").convert_alpha()
+        self.numbers= tuple(pygame.image.load(f"assets/{i}").convert_alpha() for i in numbers)
+        highlight = pygame.image.load("assets/menu/highlight.png").convert_alpha()
+        self.highlight = pygame.transform.scale(highlight, (80, 80))
+        self.highlightPocket = pygame.transform.scale(highlight, (160, 160))
+        self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
 
-        self.complexLayout= []
-        for y in range(10):
+        self.simpleLayout = self.levelData["layout"]
+        self.cellData = self.levelData["cells"]
+        cells["level"]= level
+        self.pocket = self.levelData["pocket"]
+        self.complexLayout = []
+        self.finals= []
+
+        for y, row in enumerate(self.simpleLayout):
             self.complexLayout.append([])
-            for x in range(10):
-                if y != 0 and y % 4 == 0 and x == 1:
-                    self.complexLayout[y].append(cells["mirror"](xy=(x,y), name="M0", data={"direction": 1}))
-                elif y != 0 and (y + 2) % 4 == 0 and x == 8:
-                    self.complexLayout[y].append(cells["mirror"](xy=(x,y), name="M1", data={"direction": 0}))
-                else:
-                    self.complexLayout[y].append(cells["default"](xy=(x,y), name="D", data=self.cellData["D"]["data"]))
+            for x, cell in enumerate(row):
+                self.complexLayout[y].append(
+                    cells[self.cellData[cell]["type"]](
+                        xy=(x, y),
+                        name=cell,
+                        layout=self.simpleLayout,
+                        data=self.cellData[cell]["data"]
+                    )
+                )
+                if cell[0] == "F":
+                    self.finals.append(self.complexLayout[y][-1])
 
-        self.calculate()
-        pygame.display.flip()
+        self.gameDisplay.fill((0, 75, 85))
 
+        # Draw initial cells
+        for y in range(self.levelData["height"]):
+            for x in range(self.levelData["width"]):
+                self.placeBack(x, y)
+                self.placeCell(x, y)
+
+        # Add a separator after everything
+        pygame.draw.rect(
+            self.gameDisplay, (0, 75, 85),
+            (self.levelData["width"] * 80, 0, self.levelData["width"] + 5, self.levelData["height"] * 80)
+        )
+
+        for y in range(len(self.simpleLayout)):
+            for x in range(len(self.simpleLayout[0])):
+                if self.simpleLayout[y][x] == "L0":
+                    newLights, rtrn = self.complexLayout[y][x].changeLight()
+                    if rtrn is not True:
+                        for Dir, color in newLights.items():
+                            self.beam(x, y, Dir, color)
+
+
+                        self.beam(x, y, Dir, color)
+
+        self.drawPocketCells()
+        pygame.display.update()
 
     def play(self):
         pastCol = None
@@ -79,15 +131,17 @@ class menu(LightHackGame):
 
             # ---------- CELL HIGHLIGHT -------------
             mouseX, mouseY = pygame.mouse.get_pos()
-            col, row = mouseX // 80, (mouseY - 130) // 80
+            col, row = mouseX // 80, mouseY // 80
             if col >= 0 and row >= 0 and col < self.levelData["width"] and row < self.levelData["height"]:
                 if (col, row) != (pastCol, pastRow):
                     if pastCol is not None and pastRow is not None:
                         self.placeBack(pastCol, pastRow)
                         self.placeCell(pastCol, pastRow)
                     pastCol, pastRow = col, row
-                    self.gameDisplay.blit(self.highlight, (col * 80, row * 80 + 130))
-                    self.placeCell(col, row)
+                    if self.complexLayout[row][col].name == "L":
+                        if self.complexLayout[row][col].state in [1, 2]:
+                            self.gameDisplay.blit(self.highlight, (col * 80, row * 80))
+                            self.placeCell(col, row)
             elif pastCol is not None and pastRow is not None:
                 self.placeBack(pastCol, pastRow)
                 self.placeCell(pastCol, pastRow)
@@ -111,13 +165,12 @@ class menu(LightHackGame):
                 self.drawPocketCells()
 
             pygame.display.update()
-
-if __name__ == "":
+if __name__ == "__main__":
     game = menu()
-    game.load()
+    game.load("section1")
     game.play()
 
-if __name__ == "__main__":
+if __name__ == "__mai__":
     while True:
         pygame.init()
         menu= pygame.display.set_mode((1000,800))

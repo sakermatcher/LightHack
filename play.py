@@ -320,5 +320,5 @@ class LightHackGame:
 
 if __name__ == "__main__":
     game = LightHackGame()
-    game.load("hard/b")
+    game.load("section1/b")
     game.play()

@@ -89,6 +89,12 @@
                 "direction": 1
             }
         },
+        "M2": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
         "F1": {
             "type": "final",
             "data": {
@@ -184,7 +190,7 @@
             "D",
             "D",
             "D",
-            "G0",
+            "M2",
             "D",
             "D",
             "D",

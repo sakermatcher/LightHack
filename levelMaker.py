@@ -245,7 +245,10 @@ class levelMaker(LightHackGame):
                         if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D":
                             index = num - pygame.K_0
                             if self.complexLayout[y][x].editProperty(index, self.changing):
-                                self.calculate()
+                                try:
+                                    self.calculate()
+                                except RecursionError:
+                                    print("Recursion Error")
                             return False
 
         self.finals= [cells["final"](data={"color":(11,11,11), "direction":0})]
