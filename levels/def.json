@@ -1,8 +1,12 @@
+// Default level file
 {
-    "width": 10,
-    "height": 10,
-    "pocket": {},
+    "width": 10, // How many cells wide the level is
+    "height": 10, // How many cells tall the level is
+    "pocket": {}, // Pocket cells available to the player "ID": quantity
+
+    // Cell IDs: name and data in the level
     "cells": {
+        // X is the wall block, D is the default empty cell
         "X": {
             "type": "block",
             "data": {}
@@ -12,5 +16,6 @@
             "data": {}
         }
     },
+    // Layout of the level, with each cell represented by its ID
     "layout": []
 }

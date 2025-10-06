@@ -16,7 +16,7 @@ tutTxt=[
 ]
 
 
-class menu(LightHackGame):
+class menu(LightHackGame): # Final menu class for playing levels and tutorials
     def __init__(self):
         self.complexLayout = []
         self.gameDisplay = None
@@ -28,6 +28,23 @@ class menu(LightHackGame):
         self.pocket = None
         self.levelData = None
         self.selectedPocket = 0
+
+    def calculate(self):
+        for y in range(len(self.complexLayout)):
+            for x in range(len(self.complexLayout[0])):
+                self.complexLayout[y][x].restart()
+
+        for y in range(len(self.complexLayout)):
+            for x in range(len(self.complexLayout[0])):
+                if self.simpleLayout[y][x] == "L0":
+                    newLights, rtrn = self.complexLayout[y][x].changeLight()
+                    if rtrn is not True:
+                        for Dir, color in newLights.items():
+                            self.beam(x, y, Dir, color)
+                self.placeBack(x, y)
+                self.placeCell(x, y)
+
+        pygame.display.update()
 
     def keyHandler(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN :
@@ -165,12 +182,12 @@ class menu(LightHackGame):
                 self.drawPocketCells()
 
             pygame.display.update()
-if __name__ == "__main__":
+if __name__ == "__mai__":
     game = menu()
     game.load("section1")
     game.play()
 
-if __name__ == "__mai__":
+if __name__ == "__main__": # Basic main menu for testing tutorials and levels
     while True:
         pygame.init()
         menu= pygame.display.set_mode((1000,800))
@@ -208,7 +225,7 @@ if __name__ == "__mai__":
                     game.gameDisplay.blit(text, (10, game.min_height + 10 + j * 20))
                 game.play()
         elif out == "lvl":
-            for i in ["setion1/lvlEz1", "setion1/a", "setion1/lvlHard1", "setion1/b"]:
+            for i in ["section1/lvlEz1", "section1/a", "section1/lvlHard1", "section1/b"]:
                 game = LightHackGame()
                 game.load(i)
                 game.play()
