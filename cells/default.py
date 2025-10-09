@@ -298,7 +298,7 @@ class default():
         Reset cell to initial state.
         Clears all light inputs and beam states for a fresh puzzle start.
         """
-        # Clear all light inputs from 4 directions
+        # Clear all
         self.inputs= [(0,0,0), (0,0,0), (0,0,0), (0,0,0)]
         # Reset vertical beam states (no color, no breaks)
         self.changeBeamStates(True, colorA= (0,0,0), colorB=(0,0,0), breakA= False, breakB= False)

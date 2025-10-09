@@ -17,8 +17,8 @@ class laser(default):
         
         Args:
             layer: Dictionary containing textures, state, and renderer information
-                   state contains: color (RGB tuple), direction (rotation)
-                   
+                state contains: color (RGB tuple), direction (rotation)
+            
         Returns:
             Rendered surface with colored laser light effect, or transparent surface if off
         """

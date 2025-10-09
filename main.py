@@ -17,18 +17,6 @@ tutTxt=[
 
 
 class menu(LightHackGame): # Final menu class for playing levels and tutorials
-    def __init__(self):
-        self.complexLayout = []
-        self.gameDisplay = None
-        self.background = None
-        self.backgroundPocket = None
-        self.highlightPocket = None
-        self.simpleLayout = None
-        self.cellData = None
-        self.pocket = None
-        self.levelData = None
-        self.selectedPocket = 0
-
     def calculate(self):
         for y in range(len(self.complexLayout)):
             for x in range(len(self.complexLayout[0])):
