@@ -238,7 +238,7 @@ class LightHackGame:
 
             # DELETE key - exit to pause menu (TODO: implement pause menu)
             elif event.key == pygame.K_DELETE:
-                return True
+                return "exit"
             
         # Check if level is completed - all final cells must be completed
         for f in self.finals:
@@ -251,10 +251,10 @@ class LightHackGame:
             text_rect = text.get_rect(center=(self.min_width // 2, self.min_height // 2))
             self.gameDisplay.blit(text, text_rect)
             pygame.display.update()
-            sleep(3)
-            return True
+            sleep(2)
+            return "win"
 
-        return False
+        return "continue"
 
     def load(self, level):
         """Load and initialize a level from JSON file with all game assets."""
@@ -280,6 +280,7 @@ class LightHackGame:
         self.min_width = self.levelData["width"] * 80 + 485
         self.min_height = self.levelData["height"] * 80
         self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
+        pygame.display.set_caption(f"Light Hack")
         
         # Load and scale background textures
         self.background = pygame.image.load("assets/background.png")
@@ -348,10 +349,10 @@ class LightHackGame:
         # Track mouse hover position for cell highlighting
         pastCol = None
         pastRow = None
-        out = False
+        out = "continue"
         
         # Main game loop
-        while not out:
+        while out == "continue":
             # Handle all pygame events
             try:
                 for event in pygame.event.get():
@@ -361,7 +362,7 @@ class LightHackGame:
                         exit()
                     # Process user input and check for game exit conditions
                     out= self.keyHandler(event)
-                    if out:
+                    if out == "exit" or out == "win":
                         break
             except SystemError:
                 pass
@@ -417,6 +418,8 @@ class LightHackGame:
                 self.drawPocketCells()
 
             pygame.display.update()
+        
+        return out
 
 # Main program execution
 if __name__ == "__main__":

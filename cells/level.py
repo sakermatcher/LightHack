@@ -79,6 +79,11 @@ class level(default):
         # Add pass indicator layer (shows level completion status)
         self.texture.newLayer(layer=3, name="pass", textures=["menu/levelPass.png", "menu/levelDo.png"], state={"index": passer, "direction": 0})
 
+        if self.state == 1:
+            for i in self.next:
+                self.changeBeamStates(beamDirs=[i], color= self.next[i])
+
+
     def changeLight(self, From=None, color=None):
         """
         Process incoming light and handle level unlocking logic.
@@ -140,15 +145,6 @@ class level(default):
             String containing the unique level ID
         """
         return self.levelID
-    
-    def unlock(self):
-        """
-        Manually unlock the level (used for level progression management).
-        Changes state from locked to unlocked and updates visual appearance.
-        """
-        self.state= 1  # Set to unlocked state
-        self.texture.update("base", index=0)     # Show normal texture
-        self.texture.update("pass", index=0)     # Show "can pass" indicator
     
     def editProperty(self, index, changing):
         """
