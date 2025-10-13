@@ -1,0 +1,122 @@
+{
+    "width": 7,
+    "height": 7,
+    "pocket": {},
+    "cells": {
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    5,
+                    5,
+                    0
+                ]
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": true,
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            }
+        },
+        "P0": {
+            "type": "prism",
+            "data": {
+                "direction": 0,
+                "flipped": false
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "M1": {
+            "type": "mirror",
+            "data": {
+                "direction": 1
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "L0",
+            "D",
+            "D",
+            "F0",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "P0",
+            "D",
+            "M0",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "P0",
+            "D",
+            "M1",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}

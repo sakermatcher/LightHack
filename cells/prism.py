@@ -110,10 +110,10 @@ class prism(default):
         if From == self.direction: # Light entering from the main direction - SPLIT white into RGB
             if not self.flipped:
                 # Normal orientation: output pure RGB beams to directions 3, 2, 1
-                return {self.convDir(3):(colors[0], 0, 0), self.convDir(2):(0, colors[1], 0), self.convDir(1):(0, 0, colors[2])}, False
+                return {self.convDir(3):(self.inputs[self.convDir(0)][0], 0, 0), self.convDir(2):(0, self.inputs[self.convDir(0)][1], 0), self.convDir(1):(0, 0, self.inputs[self.convDir(0)][2])}, False
             else:
                 # Flipped orientation: output pure RGB beams to directions 1, 2, 3
-                return {self.convDir(1):(colors[0], 0, 0), self.convDir(2):(0, colors[1], 0), self.convDir(3):(0, 0, colors[2])}, False
+                return {self.convDir(1):(self.inputs[self.convDir(0)][0], 0, 0), self.convDir(2):(0, self.inputs[self.convDir(0)][1], 0), self.convDir(3):(0, 0, self.inputs[self.convDir(0)][2])}, False
         
         else: # Light entering from side directions - COMBINE RGB into white
             if not self.flipped:

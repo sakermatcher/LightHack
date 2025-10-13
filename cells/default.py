@@ -55,6 +55,45 @@ class default():
         
         return final
     
+    def debugoverlayRenderer(self, layer:dict):
+        """
+        Debug Overlay Render to see inputs
+        Renders debug overlay showing RGB color values for each beam direction.
+        Displays numerical indicators for light intensity in each color channel.
+        """
+        # Only render overlay if explicitly requested
+        if layer["state"]["show"]:
+            # Start with base overlay texture
+            final = layer["textures"][-1].copy()
+            imgs= layer["textures"]
+
+            # Extract color values for each beam direction
+            color0= self.inputs[0]  # Vertical beam A (up)
+            color1= self.inputs[1]  # Horizontal beam A (right)
+            color2= self.inputs[2]  # Vertical beam B (down)
+            color3= self.inputs[3]  # Horizontal beam B (left)
+
+            # Define pixel coordinates for number placement
+            coordsh= (13,18,23)  # Horizontal positions for RGB values
+            coordsv= (11,17,23)  # Vertical positions for RGB values
+            commons= (5,30,6,30)  # Common coordinate pairs for positioning
+
+            # Process each beam's color values
+            for i, color in enumerate([color0, color2, color1, color3]):
+                # Process each RGB channel
+                for j, rgb in enumerate(color):
+                    # Position numbers based on beam direction (vertical vs horizontal)
+                    if i < 2:  # Vertical beams (up/down)
+                        # Use red, cyan, blue color coding for R, G, B channels
+                        final.blit(multiply(imgs[rgb], ((255,50,50)[j], (50,255,180)[j], (50,50,255)[j])), (coordsh[j], commons[i]))
+                    else:  # Horizontal beams (left/right)
+                        final.blit(multiply(imgs[rgb], ((255,50,50)[j], (50,255,180)[j], (50,50,255)[j])), (commons[i], coordsv[j]))
+
+            return final
+        else:
+            # Return empty transparent surface if overlay is disabled
+            return surface.Surface((40,40), SRCALPHA)
+    
     def overlayRenderer(self, layer:dict):
         """
         Renders debug overlay showing RGB color values for each beam direction.

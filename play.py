@@ -353,15 +353,18 @@ class LightHackGame:
         # Main game loop
         while not out:
             # Handle all pygame events
-            for event in pygame.event.get():
-                # Handle window close button
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                # Process user input and check for game exit conditions
-                out= self.keyHandler(event)
-                if out:
-                    break
+            try:
+                for event in pygame.event.get():
+                    # Handle window close button
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    # Process user input and check for game exit conditions
+                    out= self.keyHandler(event)
+                    if out:
+                        break
+            except:
+                pass
 
             # ---------- CELL HIGHLIGHT SYSTEM -------------
             # Track mouse position and highlight hovered cells
@@ -419,5 +422,5 @@ class LightHackGame:
 if __name__ == "__main__":
     # Create game instance and run a hard level
     game = LightHackGame()
-    game.load("section1/lvlHard1")  # Load level from JSON file
+    game.load("testing")  # Load level from JSON file
     game.play()  # Start the game loop
