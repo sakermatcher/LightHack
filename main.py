@@ -126,13 +126,16 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         pastRow = None
         out = False
         while not out:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                out= self.keyHandler(event)
-                if out:
-                    break
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    out= self.keyHandler(event)
+                    if out:
+                        break
+            except:
+                pass
 
             # ---------- CELL HIGHLIGHT -------------
             mouseX, mouseY = pygame.mouse.get_pos()
@@ -170,12 +173,12 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                 self.drawPocketCells()
 
             pygame.display.update()
-if __name__ == "__mai__":
+if __name__ == "__main__":
     game = menu()
     game.load("section1")
     game.play()
 
-if __name__ == "__main__": # Basic main menu for testing tutorials and levels
+if __name__ == "__mai__": # Basic main menu for testing tutorials and levels
     while True:
         pygame.init()
         menu= pygame.display.set_mode((1000,800))
@@ -186,18 +189,20 @@ if __name__ == "__main__": # Basic main menu for testing tutorials and levels
         menu.blit(text, (100,380))
         out= None
         while out is None:
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_t:
-                        out= "tut"
+            try:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_t:
+                            out= "tut"
+                            break
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        out= "lvl"
                         break
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    out= "lvl"
-                    break
+            except:
+                pass
             pygame.display.flip()
 
         pygame.quit()

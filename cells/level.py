@@ -114,7 +114,7 @@ class level(default):
         for i in range(4):
             if self.inputs[i] != (0,0,0):
                 # Update beam visuals for this direction
-                self.changeBeamStates(beamDirs=[i], color= self.inputs[i])
+                self.changeBeamStates(beamDirs=[i], color= self.inputs[i], breakA= False, breakB= False)
                 # Check if light should be blocked in this direction
                 self.checkBreak(i)
 
