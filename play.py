@@ -363,7 +363,7 @@ class LightHackGame:
                     out= self.keyHandler(event)
                     if out:
                         break
-            except:
+            except SystemError:
                 pass
 
             # ---------- CELL HIGHLIGHT SYSTEM -------------

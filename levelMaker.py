@@ -257,7 +257,7 @@ class levelMaker(LightHackGame):
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("testing", width=7, height=7)
+    game.loadLevel("section1", width=15, height=10)
     pygame.mixer.quit()
     game.drawSelectedCells()
     game.play()

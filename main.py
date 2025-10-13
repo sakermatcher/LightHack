@@ -8,11 +8,11 @@ import json
 tutTxt=[
     "Welcome to lightHack!, a puzzle game where you use light to win, you can see that there is a laser in the game with a certain power on Red, Green, and\nBlue ranging from 0-10 noted on the indicators in the corner of the laser, your objective is to get the needed power for the generator (you know how\nmuch you will need by its indicators), right now you have 1 mirror in your pocket which will bend light in 90 degrees. Use WASD to move your selection\nand click to place blocks. Right Click to remove blocks, R to rotate them, and E will show you the light on a specific cell.",
     "Here we have 5 power on the Red channel, but we need 10 to power the generator, the light lens empowers all channels passing through it by the number\non its indicator, you have to pass the light through the lens, because on its sides it will only break the beam",
+    "Here we have verious mirrors and a lens, use the mirrors to bend the light to the lens, and then use the lens to empower the light to the needed power for the\ngenerator, you can select things from your pocket (on the right) by clicking on them, or move your selection by using WASD."
     "Here we have 10 Blue and 10 Red on the laser, but we need 5 Blue and 5 Red, with the use of a dark lens, we can reduce the power of all channels by the\nnumber on its indicator, so we will pass the light through the dark lens to reduce both channels by 5",
     "The prism is a block that can be used to separate a light in its different channels by passing it through the prism on the multicolor section, here we have\n Yellow (Red and Green), but we only need Red, so we will pass the light through the prism and take the Red channel to the generator, note that\nthe prism has specific sides for each color, and one multicolor side so only a specific color can pass through each.",
     "The prism can also be used to combine different channels into one beam, here we have 10 Red and 10 Blue, but we need Magenta (Red and Blue), so we will\npass both beams through the prism to combine them into one, note that the prism has specific sides for each color, and one multicolor side.",
-    "Here we will use one prism to separate the beam, then a lens to change just the Red channel and then another prism to combine the beam back together, so\nwe can get the needed power for the generator, you can use F to flip a prism (Red with Blue).",
-    ""
+    "Here we will use one prism to separate the beam, then a lens to change just the Red channel and then another prism to combine the beam back together, so\nwe can get the needed power for the generator, you can use F to flip a prism (Red with Blue)."
 ]
 
 
@@ -41,7 +41,34 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
             if event.button == 1:
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     if self.complexLayout[y][x].name == "L":
-                        self.complexLayout[y][x].unlock()
+                        if self.complexLayout[y][x].state in [1, 2]:
+                            lvl= self.complexLayout[y][x].openLevel()
+                            if lvl[0] == "t":
+                                playing= LightHackGame()
+                                playing.load(f"{self.levelName}/{lvl}")
+                                i= int(lvl[1:])
+                                playing.gameDisplay= pygame.display.set_mode((playing.min_width, playing.min_height + 130))
+                                pygame.display.set_caption(f"LightHack Tutorial {i}")
+                                font= pygame.font.Font(None, 26)
+                                for j, txt in enumerate(tutTxt[i-1].split("\n")):
+                                    text= font.render(txt, True, (50,200,255))
+                                    playing.gameDisplay.blit(text, (10, playing.min_height + 10 + j * 20))
+                                playing.play()
+                                at= self.simpleLayout[y][x]
+                                self.levelData["cells"][at]["data"]["state"] = 1
+                                with open(f"levels/{self.levelName}.json", "w") as f:
+                                    json.dump(self.levelData, f, indent=4)
+                                self.load(self.levelName)
+                            else:
+                                playing= LightHackGame()
+                                playing.load(f"{self.levelName}/{lvl}")
+                                playing.play()
+                                at= self.simpleLayout[y][x]
+                                self.levelData["cells"][at]["data"]["state"] = 1
+                                with open(f"levels/{self.levelName}.json", "w") as f:
+                                    json.dump(self.levelData, f, indent=4)
+                                self.load(self.levelName)
+                        #self.complexLayout[y][x].unlock()
                         self.calculate()
 
         return False
@@ -59,6 +86,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         pygame.mixer.music.load("assets/lightHackV1.mp3")
         pygame.mixer.music.play(-1)  # Loop indefinitely
         # --- END MUSIC ---
+        self.levelName= levelName
         self.min_width = self.levelData["width"] * 80
         self.min_height = self.levelData["height"] * 80
         self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
@@ -131,10 +159,11 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
+                        out = True
                     out= self.keyHandler(event)
                     if out:
                         break
-            except:
+            except SystemError:
                 pass
 
             # ---------- CELL HIGHLIGHT -------------
