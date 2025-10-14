@@ -73,11 +73,11 @@ class LightHackGame:
     def makeBorder(self):
         """Draw the border around the game area."""
         # Draw sides
-        for x in range(self.min_width // 16 - 2):
+        for x in range(self.min_width // 16 - 3):
             self.gameDisplay.blit(self.borderS, (self.offsetX + x * 16, self.offsetY - 33))  # Top side
-            self.gameDisplay.blit(self.borderS, (self.offsetX + x * 16, self.offsetY + self.min_height - 66))  # Bottom side
+            self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 180), (self.offsetX + x * 16, self.offsetY + self.min_height - 66))  # Bottom side
 
-        for y in range(self.min_height // 16 - 2):
+        for y in range(self.min_height // 16 - 3):
             self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 90), (self.offsetX - 33, self.offsetY + y * 16))  # Left side
             self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 270), (self.offsetX + self.min_width - 66, self.offsetY + y * 16))  # Right side
 
@@ -294,8 +294,8 @@ class LightHackGame:
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     self.placeCell(x, y, overlay=True)
 
-            # DELETE key - exit to pause menu (TODO: implement pause menu)
-            elif event.key == pygame.K_DELETE:
+            # ESC key - exit to pause menu (TODO: implement pause menu)
+            elif event.key == pygame.K_ESCAPE:
                 return "exit"
             
         # Check if level is completed - all final cells must be completed

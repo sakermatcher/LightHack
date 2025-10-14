@@ -23,17 +23,17 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         super().calculate()
         pygame.display.set_caption(f"Light Hack - Menu")
         #Darken the screen
-        darken= pygame.Surface((self.min_width, self.min_height))
+        darken= pygame.Surface((self.min_width - 66, self.min_height - 66))
         darken.set_alpha(100)
         darken.fill((0,0,0))
-        self.gameDisplay.blit(darken, (0,0))
+        self.gameDisplay.blit(darken, (33,33))
         #Write "Light Hack" in the middle of the screen
         font= pygame.font.Font(None, 100)
         text1= font.render("Light Hack", True, (50,200,255))
-        self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2, self.min_height//2 - text1.get_height()//2 - 100))
+        self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2 + self.offsetX, self.min_height//2 - text1.get_height()//2 - 100 + self.offsetY))
         #Write "Click to Play" below
         text2= font.render("Click to Play", True, (50,200,255))
-        self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2, self.min_height//2 - text2.get_height()//2))
+        self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2 + self.offsetX, self.min_height//2 - text2.get_height()//2 + self.offsetY))
         pygame.display.update()
         # Wait for a click to continue
 
@@ -43,6 +43,8 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     pygame.quit()
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.display.quit()
+                    pygame.quit()
                     return
                 elif (self.lastWidth, self.lastHeight) != self.gameDisplay.get_size():
                     cur_width, cur_height = self.gameDisplay.get_size()
@@ -51,17 +53,20 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     if (cur_width, cur_height) != (new_width, new_height):
                         self.gameDisplay = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
                     self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
+                    self.offsetX = (self.lastWidth - self.min_width) // 2 + 33
+                    self.offsetY = (self.lastHeight - self.min_height) // 2 + 33
+                    self.makeGradient()
+                    self.makeBorder()
                     for y in range(self.levelData["height"]):
                         for x in range(self.levelData["width"]):
                             self.placeBack(x, y)
                             self.placeCell(x, y)
 
-                    self.gameDisplay.blit(darken, (0,0))
-                    self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2, self.min_height//2 - text1.get_height()//2 - 100))
-                    self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2, self.min_height//2 - text2.get_height()//2))
+                    self.gameDisplay.blit(darken, (self.offsetX, self.offsetY))
+                    self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2 + self.offsetX, self.min_height//2 - text1.get_height()//2 - 100 + self.offsetY))
+                    self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2 + self.offsetX, self.min_height//2 - text2.get_height()//2 + self.offsetY))
 
                     pygame.display.update()
-            
         
     def calculate(self):
         for y in range(len(self.complexLayout)):
@@ -81,7 +86,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         pygame.display.update()
 
     def keyHandler(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN :
+        if event.type == pygame.MOUSEBUTTONDOWN:
             mouseX, mouseY = pygame.mouse.get_pos()
             x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
             if event.button == 1:
