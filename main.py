@@ -83,7 +83,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
     def keyHandler(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN :
             mouseX, mouseY = pygame.mouse.get_pos()
-            x, y = mouseX // 80, mouseY // 80
+            x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
             if event.button == 1:
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     if self.complexLayout[y][x].name == "L":
@@ -91,34 +91,32 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                             lvl= self.complexLayout[y][x].openLevel()
                             if lvl[0] == "t":
                                 playing= LightHackGame()
-                                playing.load(f"{self.levelName}/{lvl}")
-                                i= int(lvl[1:])
-                                playing.gameDisplay= pygame.display.set_mode((playing.min_width, playing.min_height + 130))
-                                font= pygame.font.Font(None, 26)
-                                for j, txt in enumerate(tutTxt[i-1].split("\n")):
-                                    text= font.render(txt, True, (50,200,255))
-                                    playing.gameDisplay.blit(text, (10, playing.min_height + 10 + j * 20))
+                                pygame.display.quit()
+                                pygame.quit()
+                                tutNum= int(lvl[1:])
+                                playing.load(f"{self.levelName}/{lvl}", startSize=(self.lastWidth, self.lastHeight), texts= tutTxt[tutNum-1].split("\n"))
                                 if playing.play() == "win":
                                     at= self.simpleLayout[y][x]
                                     self.levelData["cells"][at]["data"]["state"] = 1
                                     with open(f"levels/{self.levelName}.json", "w") as f:
                                         json.dump(self.levelData, f, indent=4)
-                                self.load(self.levelName)
+                                self.load(self.levelName, (playing.lastWidth, playing.lastHeight))
                             else:
                                 playing= LightHackGame()
-                                playing.load(f"{self.levelName}/{lvl}")
+                                pygame.display.quit()
+                                pygame.quit()
+                                playing.load(f"{self.levelName}/{lvl}", startSize=(self.lastWidth, self.lastHeight))
                                 if playing.play() == "win":
                                     at= self.simpleLayout[y][x]
                                     self.levelData["cells"][at]["data"]["state"] = 1
                                     with open(f"levels/{self.levelName}.json", "w") as f:
                                         json.dump(self.levelData, f, indent=4)
-                                self.load(self.levelName)
-                        #self.complexLayout[y][x].unlock()
+                                self.load(self.levelName, (playing.lastWidth, playing.lastHeight))
                         self.calculate()
 
         return False
 
-    def load(self, levelName):
+    def load(self, levelName, startSize=(0, 0)):
         try:
             self.levelData = json.load(open(f"levels/{levelName}.json", "r"))
         except FileNotFoundError:
@@ -132,18 +130,19 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         pygame.mixer.music.play(-1)  # Loop indefinitely
         # --- END MUSIC ---
         self.levelName= levelName
-        self.min_width = self.levelData["width"] * 80
-        self.min_height = self.levelData["height"] * 80
-        self.gameDisplay = pygame.display.set_mode((self.min_width, self.min_height), pygame.RESIZABLE)
+        self.min_width = self.levelData["width"] * 80 + 66
+        self.min_height = self.levelData["height"] * 80 + 66
+        self.offsetX = (max(startSize[0], self.min_width) - self.min_width) // 2 + 33
+        self.offsetY = (max(startSize[1], self.min_height) - self.min_height) // 2 + 33
+        self.gameDisplay = pygame.display.set_mode((max(self.min_width, startSize[0]), max(self.min_height, startSize[1])), pygame.RESIZABLE)
         pygame.display.set_caption(f"Light Hack")
+        # Load and scale background textures
+        self.borderC = pygame.image.load("assets/border/corner.png").convert_alpha()
+        self.borderS = pygame.image.load("assets/border/side.png").convert_alpha()
         self.background = pygame.image.load("assets/background.png")
-        self.backgroundPocket = pygame.transform.scale(self.background, (160, 160))
         self.background = pygame.transform.scale(self.background, (80, 80))
-        self.qty = pygame.image.load("assets/indicators/qty.png").convert_alpha()
-        self.numbers= tuple(pygame.image.load(f"assets/{i}").convert_alpha() for i in numbers)
-        highlight = pygame.image.load("assets/menu/highlight.png").convert_alpha()
-        self.highlight = pygame.transform.scale(highlight, (80, 80))
-        self.highlightPocket = pygame.transform.scale(highlight, (160, 160))
+        self.highlight = pygame.image.load("assets/menu/highlight.png").convert_alpha()
+        self.highlight = pygame.transform.scale(self.highlight, (80, 80))
         self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
 
         self.simpleLayout = self.levelData["layout"]
@@ -169,17 +168,14 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
 
         self.gameDisplay.fill((0, 75, 85))
 
+        self.makeGradient()
+        self.makeBorder()
+
         # Draw initial cells
         for y in range(self.levelData["height"]):
             for x in range(self.levelData["width"]):
                 self.placeBack(x, y)
                 self.placeCell(x, y)
-
-        # Add a separator after everything
-        pygame.draw.rect(
-            self.gameDisplay, (0, 75, 85),
-            (self.levelData["width"] * 80, 0, self.levelData["width"] + 5, self.levelData["height"] * 80)
-        )
 
         for y in range(len(self.simpleLayout)):
             for x in range(len(self.simpleLayout[0])):
@@ -192,7 +188,6 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
 
                         self.beam(x, y, Dir, color)
 
-        self.drawPocketCells()
         pygame.display.update()
 
     def play(self):
@@ -214,7 +209,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
 
             # ---------- CELL HIGHLIGHT -------------
             mouseX, mouseY = pygame.mouse.get_pos()
-            col, row = mouseX // 80, mouseY // 80
+            col, row = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
             if col >= 0 and row >= 0 and col < self.levelData["width"] and row < self.levelData["height"]:
                 if (col, row) != (pastCol, pastRow):
                     if pastCol is not None and pastRow is not None:
@@ -223,7 +218,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     pastCol, pastRow = col, row
                     if self.complexLayout[row][col].name == "L":
                         if self.complexLayout[row][col].state in [1, 2]:
-                            self.gameDisplay.blit(self.highlight, (col * 80, row * 80))
+                            self.gameDisplay.blit(self.highlight, (col * 80 + self.offsetX, row * 80 + self.offsetY))
                             self.placeCell(col, row)
             elif pastCol is not None and pastRow is not None:
                 self.placeBack(pastCol, pastRow)
@@ -237,6 +232,10 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                 if (cur_width, cur_height) != (new_width, new_height):
                     self.gameDisplay = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
                 self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
+                self.offsetX = (self.lastWidth - self.min_width) // 2 + 33
+                self.offsetY = (self.lastHeight - self.min_height) // 2 + 33
+                self.makeGradient()
+                self.makeBorder()
                 for y in range(self.levelData["height"]):
                     for x in range(self.levelData["width"]):
                         self.placeBack(x, y)
