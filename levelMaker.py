@@ -76,7 +76,7 @@ class levelMaker(LightHackGame):
                         cellKey= "X"
                     self.simpleLayout[y][x] = cellKey[0].upper()
                     self.calculate()
-                return False
+                return "continue"
             
             elif event.button == 3:
                 x, y = mouseX // 80, mouseY // 80
@@ -86,7 +86,7 @@ class levelMaker(LightHackGame):
                 self.complexLayout[y][x] = self.complexLayout[y][x].convert(other=cells["default"], name="D")
                 self.simpleLayout[y][x] = "D"
                 self.calculate()
-                return False
+                return "continue"
 
         elif event.type == pygame.KEYDOWN:
             mouseX, mouseY = pygame.mouse.get_pos()
@@ -100,7 +100,7 @@ class levelMaker(LightHackGame):
                         self.toPocket[0].append((x, y))
                         self.toPocket[1].append(self.complexLayout[y][x])
                     self.calculate()
-                return False
+                return "continue"
             
             elif event.key == pygame.K_r:
                 x, y = mouseX // 80, mouseY // 80
@@ -122,7 +122,7 @@ class levelMaker(LightHackGame):
                 else:
                     self.selectedPocket = 14
                 self.drawPocketCells()
-                return False
+                return "continue"
 
             elif event.key == pygame.K_s:
                 if self.selectedPocket < 14:
@@ -130,19 +130,19 @@ class levelMaker(LightHackGame):
                 else:
                     self.selectedPocket = 0    
                 self.drawPocketCells()
-                return False
+                return "continue"
 
             elif event.key == pygame.K_a:
                 if self.selectedCell > 0:
                     self.selectedCell -= 1
                 self.drawSelectedCells()
-                return False
+                return "continue"
 
             elif event.key == pygame.K_d:
                 if self.selectedCell < len(cells) - 2:
                     self.selectedCell += 1
                 self.drawSelectedCells()
-                return False
+                return "continue"
             
             elif event.key == pygame.K_z:
                 x, y = mouseX // 80, mouseY // 80
@@ -150,7 +150,7 @@ class levelMaker(LightHackGame):
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D":
                     if self.complexLayout[y][x].editProperty(None, self.changing):
                         self.calculate()
-                return False
+                return "continue"
             
             elif event.key == pygame.K_x:
                 x, y = mouseX // 80, mouseY // 80
@@ -158,7 +158,7 @@ class levelMaker(LightHackGame):
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D":
                     if self.complexLayout[y][x].editProperty(None, self.changing):
                         self.calculate()
-                return False
+                return "continue"
 
             elif event.key == pygame.K_c:
                 x, y = mouseX // 80, mouseY // 80
@@ -166,14 +166,14 @@ class levelMaker(LightHackGame):
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.simpleLayout[y][x] != "D":
                     if self.complexLayout[y][x].editProperty(None, self.changing):
                         self.calculate()
-                return False
+                return "continue"
         
             elif event.key == pygame.K_q:
                 if self.selectedPocket < len(self.pocket):
                     self.pocket[list(self.pocket.keys())[self.selectedPocket]] += 1
                     del(self.pocket[list(self.pocket.keys())[self.selectedPocket]])
                     self.drawPocketCells()
-                return False
+                return "continue"
 
             elif event.key == pygame.K_ESCAPE:
                 newData= [[],[],[]] #ID, qty, data
@@ -236,7 +236,7 @@ class levelMaker(LightHackGame):
                     }, f, indent=4)
 
             
-                return False
+                return "continue"
 
             else:
                 for num in range(pygame.K_0, pygame.K_9 + 1):
@@ -249,15 +249,15 @@ class levelMaker(LightHackGame):
                                     self.calculate()
                                 except RecursionError:
                                     print("Recursion Error")
-                            return False
+                            return "continue"
 
         self.finals= [cells["final"](data={"color":(11,11,11), "direction":0})]
         super().keyHandler(event)
-        return False
+        return "continue"
 
 if __name__ == "__main__":
     game = levelMaker()
-    game.loadLevel("section1", width=15, height=10)
+    game.loadLevel("bak", width=15, height=10)
     pygame.mixer.quit()
     game.drawSelectedCells()
     game.play()

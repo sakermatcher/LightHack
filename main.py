@@ -12,11 +12,57 @@ tutTxt=[
     "Here we have 10 Blue and 10 Red on the laser, but we need 5 Blue and 5 Red, with the use of a dark lens, we can reduce the power of all channels by the\nnumber on its indicator, so we will pass the light through the dark lens to reduce both channels by 5",
     "The prism is a block that can be used to separate a light in its different channels by passing it through the prism on the multicolor section, here we have\n Yellow (Red and Green), but we only need Red, so we will pass the light through the prism and take the Red channel to the generator, note that\nthe prism has specific sides for each color, and one multicolor side so only a specific color can pass through each.",
     "The prism can also be used to combine different channels into one beam, here we have 10 Red and 10 Blue, but we need Magenta (Red and Blue), so we will\npass both beams through the prism to combine them into one, note that the prism has specific sides for each color, and one multicolor side.",
-    "Here we will use one prism to separate the beam, then a lens to change just the Red channel and then another prism to combine the beam back together, so\nwe can get the needed power for the generator, you can use F to flip a prism (Red with Blue)."
+    "Here we will use one prism to separate the beam, then a lens to change just the Green channel and then place another prism to combine the beam back\ntogether, so we can get the needed power for the generator, use F to flip a prism (Red with Blue)."
 ]
 
 
 class menu(LightHackGame): # Final menu class for playing levels and tutorials
+    def __init__(self):
+        super().__init__()
+        self.load("bak")
+        super().calculate()
+        pygame.display.set_caption(f"Light Hack - Menu")
+        #Darken the screen
+        darken= pygame.Surface((self.min_width, self.min_height))
+        darken.set_alpha(100)
+        darken.fill((0,0,0))
+        self.gameDisplay.blit(darken, (0,0))
+        #Write "Light Hack" in the middle of the screen
+        font= pygame.font.Font(None, 100)
+        text1= font.render("Light Hack", True, (50,200,255))
+        self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2, self.min_height//2 - text1.get_height()//2 - 100))
+        #Write "Click to Play" below
+        text2= font.render("Click to Play", True, (50,200,255))
+        self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2, self.min_height//2 - text2.get_height()//2))
+        pygame.display.update()
+        # Wait for a click to continue
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    return
+                elif (self.lastWidth, self.lastHeight) != self.gameDisplay.get_size():
+                    cur_width, cur_height = self.gameDisplay.get_size()
+                    new_width = max(cur_width, self.min_width)
+                    new_height = max(cur_height, self.min_height)
+                    if (cur_width, cur_height) != (new_width, new_height):
+                        self.gameDisplay = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
+                    self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
+                    for y in range(self.levelData["height"]):
+                        for x in range(self.levelData["width"]):
+                            self.placeBack(x, y)
+                            self.placeCell(x, y)
+
+                    self.gameDisplay.blit(darken, (0,0))
+                    self.gameDisplay.blit(text1, (self.min_width//2 - text1.get_width()//2, self.min_height//2 - text1.get_height()//2 - 100))
+                    self.gameDisplay.blit(text2, (self.min_width//2 - text2.get_width()//2, self.min_height//2 - text2.get_height()//2))
+
+                    pygame.display.update()
+            
+        
     def calculate(self):
         for y in range(len(self.complexLayout)):
             for x in range(len(self.complexLayout[0])):
@@ -195,12 +241,6 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     for x in range(self.levelData["width"]):
                         self.placeBack(x, y)
                         self.placeCell(x, y)
-                pygame.draw.rect(
-                    self.gameDisplay, (0, 75, 85),
-                    (self.levelData["width"] * 80, 0, self.levelData["width"] + 5, self.levelData["height"] * 80)
-                )
-                self.drawPocketCells()
-
             pygame.display.update()
 if __name__ == "__main__":
     game = menu()

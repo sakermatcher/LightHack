@@ -6,7 +6,7 @@
         "L0": {
             "type": "level",
             "data": {
-                "state": 1,
+                "state": 2,
                 "next": {
                     "3": [
                         0,
@@ -21,7 +21,7 @@
         "L1": {
             "type": "level",
             "data": {
-                "state": 1,
+                "state": 0,
                 "next": {
                     "3": [
                         0,
@@ -36,7 +36,7 @@
         "L2": {
             "type": "level",
             "data": {
-                "state": 1,
+                "state": 0,
                 "next": {
                     "3": [
                         0,
@@ -51,7 +51,7 @@
         "L3": {
             "type": "level",
             "data": {
-                "state": 1,
+                "state": 0,
                 "next": {
                     "3": [
                         0,

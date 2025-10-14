@@ -1,0 +1,367 @@
+{
+    "width": 15,
+    "height": 10,
+    "pocket": {},
+    "cells": {
+        "L0": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "62b37106"
+            }
+        },
+        "L1": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "65189e4d"
+            }
+        },
+        "L2": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    4,
+                    0
+                ]
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 1
+            }
+        },
+        "M1": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "L3": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    10,
+                    0
+                ]
+            }
+        },
+        "L4": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "b392c58e"
+            }
+        },
+        "L5": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "4fd41294"
+            }
+        },
+        "P0": {
+            "type": "prism",
+            "data": {
+                "direction": 0,
+                "flipped": true
+            }
+        },
+        "L6": {
+            "type": "laser",
+            "data": {
+                "direction": 3,
+                "color": [
+                    6,
+                    0,
+                    0
+                ]
+            }
+        },
+        "P1": {
+            "type": "prism",
+            "data": {
+                "direction": 2,
+                "flipped": false
+            }
+        },
+        "L7": {
+            "type": "laser",
+            "data": {
+                "direction": 1,
+                "color": [
+                    0,
+                    0,
+                    5
+                ]
+            }
+        },
+        "G0": {
+            "type": "glass",
+            "data": {
+                "direction": 1,
+                "type": 0,
+                "potency": 5
+            }
+        },
+        "G1": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 1,
+                "potency": 4
+            }
+        },
+        "L8": {
+            "type": "laser",
+            "data": {
+                "direction": 1,
+                "color": [
+                    10,
+                    5,
+                    0
+                ]
+            }
+        },
+        "L9": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "2ec0a255"
+            }
+        },
+        "L10": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "d45966aa"
+            }
+        },
+        "L11": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    7,
+                    7
+                ]
+            }
+        },
+        "L12": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "56ffce8f"
+            }
+        },
+        "L13": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "f76d2d16"
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "L0",
+            "L1",
+            "X",
+            "L2",
+            "M0",
+            "D",
+            "D",
+            "D",
+            "M1",
+            "L3",
+            "X",
+            "L4",
+            "L5",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "P0",
+            "M1",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "L6",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "P1",
+            "D",
+            "D",
+            "L7",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "P1",
+            "M0",
+            "P1",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "M1",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "G0",
+            "M1",
+            "D",
+            "D",
+            "D",
+            "D",
+            "M0",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "M1",
+            "D",
+            "D",
+            "M0",
+            "D",
+            "D",
+            "M0",
+            "D",
+            "D",
+            "G1",
+            "D",
+            "D",
+            "L8",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "L9",
+            "L10",
+            "X",
+            "L11",
+            "D",
+            "D",
+            "M1",
+            "D",
+            "D",
+            "D",
+            "X",
+            "L12",
+            "L13",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}
