@@ -193,11 +193,12 @@ class LightHackGame:
 
     def keyHandler(self, event):
         """Handle all user input events (mouse clicks and keyboard presses)."""
+
+        # Get mouse position and convert to grid coordinates
+        mouseX, mouseY = pygame.mouse.get_pos()
+        x, y = (mouseX - self.offsetX) // self.cellSize, (mouseY - self.offsetY) // self.cellSize
         # Handle mouse button clicks
         if event.type == pygame.MOUSEBUTTONDOWN :
-            mouseX, mouseY = pygame.mouse.get_pos()
-            x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
-            
             # Left mouse button - place cells from inventory or select pocket slots
             if event.button == 1:
                 # Click on game grid to place a cell
@@ -217,7 +218,6 @@ class LightHackGame:
                         self.drawPocketCells()
             # Right mouse button - remove cells and return them to inventory
             elif event.button == 3:
-                x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     # Remove cell if it exists in inventory system
                     if self.complexLayout[y][x].name in self.pocket:
@@ -225,12 +225,9 @@ class LightHackGame:
                         self.complexLayout[y][x] = self.complexLayout[y][x].convert(other=cells["default"], name="D")
                         self.calculate()
                         self.drawPocketCells()
-                    else:
-                        print(self.complexLayout[y][x].name, "is not in pocket")
 
         # Handle keyboard input
         elif event.type == pygame.KEYDOWN:
-            mouseX, mouseY = pygame.mouse.get_pos()
             # W key - navigate pocket selection up
             if event.key == pygame.K_w:
                 if self.selectedPocket > 2:
@@ -273,8 +270,6 @@ class LightHackGame:
 
             # R key - rotate cell under mouse cursor
             elif event.key == pygame.K_r:
-                x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
-                
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.levelData["layout"][y][x] == "D":
                     now = self.complexLayout[y][x].direction
                     newDir = 0 if now == 3 else now + 1
@@ -283,14 +278,12 @@ class LightHackGame:
 
             # F key - flip cell under mouse cursor
             elif event.key == pygame.K_f:
-                x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.levelData["layout"][y][x] == "D":
                     if self.complexLayout[y][x].flip():
                         self.calculate()
 
             # E key - show overlay for cell under mouse cursor
             elif event.key == pygame.K_e:
-                x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     self.placeCell(x, y, overlay=True)
 
@@ -447,7 +440,7 @@ class LightHackGame:
             # ---------- CELL HIGHLIGHT SYSTEM -------------
             # Track mouse position and highlight hovered cells
             mouseX, mouseY = pygame.mouse.get_pos()
-            col, row = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
+            col, row = (mouseX - self.offsetX) // self.cellSize, (mouseY - self.offsetY) // self.cellSize
             
             # Check if mouse is over a valid cell
             if col >= 0 and row >= 0 and col < self.levelData["width"] and row < self.levelData["height"]:
