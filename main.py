@@ -2,8 +2,12 @@ from play import LightHackGame
 import pygame
 from cells import cells
 from cells.level import level
-from cells.indicator import numbers
 import json
+from screeninfo import get_monitors
+
+monitors = get_monitors()
+main_monitor = min(monitors, key=lambda m: (abs(m.x), abs(m.y)))
+screenHeight = main_monitor.height
 
 tutTxt=[
     "Welcome to lightHack!, a puzzle game where you use light to win, you can see that there is a laser in the game with a certain power on Red, Green, and\nBlue ranging from 0-10 noted on the indicators in the corner of the laser, your objective is to get the needed power for the generator (you know how\nmuch you will need by its indicators), right now you have 1 mirror in your pocket which will bend light in 90 degrees. Use WASD to move your selection\nand click to place blocks. Right Click to remove blocks, R to rotate them, and E will show you the light on a specific cell.",
@@ -18,6 +22,7 @@ tutTxt=[
 
 class menu(LightHackGame): # Final menu class for playing levels and tutorials
     def __init__(self):
+        self.cellSize = int(screenHeight / 13.5)  # Size of each cell in pixels
         super().__init__()
         self.load("bak")
         super().calculate()
@@ -88,7 +93,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
     def keyHandler(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouseX, mouseY = pygame.mouse.get_pos()
-            x, y = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
+            x, y = (mouseX - self.offsetX) // self.cellSize, (mouseY - self.offsetY) // self.cellSize
             if event.button == 1:
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     if self.complexLayout[y][x].name == "L":
@@ -135,8 +140,8 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         pygame.mixer.music.play(-1)  # Loop indefinitely
         # --- END MUSIC ---
         self.levelName= levelName
-        self.min_width = self.levelData["width"] * 80 + 66
-        self.min_height = self.levelData["height"] * 80 + 66
+        self.min_width = self.levelData["width"] * self.cellSize + 66
+        self.min_height = self.levelData["height"] * self.cellSize + 66
         self.offsetX = (max(startSize[0], self.min_width) - self.min_width) // 2 + 33
         self.offsetY = (max(startSize[1], self.min_height) - self.min_height) // 2 + 33
         self.gameDisplay = pygame.display.set_mode((max(self.min_width, startSize[0]), max(self.min_height, startSize[1])), pygame.RESIZABLE)
@@ -145,9 +150,9 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
         self.borderC = pygame.image.load("assets/border/corner.png").convert_alpha()
         self.borderS = pygame.image.load("assets/border/side.png").convert_alpha()
         self.background = pygame.image.load("assets/background.png")
-        self.background = pygame.transform.scale(self.background, (80, 80))
+        self.background = pygame.transform.scale(self.background, (self.cellSize, self.cellSize))
         self.highlight = pygame.image.load("assets/menu/highlight.png").convert_alpha()
-        self.highlight = pygame.transform.scale(self.highlight, (80, 80))
+        self.highlight = pygame.transform.scale(self.highlight, (self.cellSize, self.cellSize))
         self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
 
         self.simpleLayout = self.levelData["layout"]
@@ -214,7 +219,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
 
             # ---------- CELL HIGHLIGHT -------------
             mouseX, mouseY = pygame.mouse.get_pos()
-            col, row = (mouseX - self.offsetX) // 80, (mouseY - self.offsetY) // 80
+            col, row = (mouseX - self.offsetX) // self.cellSize, (mouseY - self.offsetY) // self.cellSize
             if col >= 0 and row >= 0 and col < self.levelData["width"] and row < self.levelData["height"]:
                 if (col, row) != (pastCol, pastRow):
                     if pastCol is not None and pastRow is not None:
@@ -223,7 +228,7 @@ class menu(LightHackGame): # Final menu class for playing levels and tutorials
                     pastCol, pastRow = col, row
                     if self.complexLayout[row][col].name == "L":
                         if self.complexLayout[row][col].state in [1, 2]:
-                            self.gameDisplay.blit(self.highlight, (col * 80 + self.offsetX, row * 80 + self.offsetY))
+                            self.gameDisplay.blit(self.highlight, (col * self.cellSize + self.offsetX, row * self.cellSize + self.offsetY))
                             self.placeCell(col, row)
             elif pastCol is not None and pastRow is not None:
                 self.placeBack(pastCol, pastRow)

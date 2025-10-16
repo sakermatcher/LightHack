@@ -148,16 +148,10 @@ class final(default):
             # Store incoming light from this direction
             self.inputs[From]= color
             
-            # Debug output (can be removed in production)
-            print("Processing filter mode")
-            print(From, color)
-            
             # Calculate combined light for visual display (bidirectional flow)
             # Add light from both directions, but subtract target color from the opposite direction
             color1= tuple(min(10, self.inputs[self.convDir(1)][i] + max(0, self.inputs[self.convDir(3)][i] - self.color[i])) for i in range(3))
             color3= tuple(min(10, self.inputs[self.convDir(3)][i] + max(0, self.inputs[self.convDir(1)][i] - self.color[i])) for i in range(3))
-            
-            print(color1, color3)
             
             # Update beam visual states for both horizontal directions
             self.changeBeamStates(beamDirs=[self.convDir(1)], color= color1)
@@ -168,7 +162,6 @@ class final(default):
             
             # Calculate total combined light intensity for completion check
             combined_color= tuple(min(10, self.inputs[self.convDir(1)][i] + self.inputs[self.convDir(3)][i]) for i in range(3))
-            print(combined_color, self.color)
             
             # Check if combined light meets or exceeds target requirements
             if combined_color[0] >= self.color[0] and combined_color[1] >= self.color[1] and combined_color[2] >= self.color[2]:

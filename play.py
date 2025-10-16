@@ -81,7 +81,6 @@ class LightHackGame:
         for x in range(self.min_width // 16 - 3):
             self.gameDisplay.blit(self.borderS, (self.offsetX + x * 16, self.offsetY - 33))  # Top side
             self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 180), (self.offsetX + x * 16, self.offsetY + self.min_height - 66))  # Bottom side
-
         for y in range(self.min_height // 16 - 3):
             self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 90), (self.offsetX - 33, self.offsetY + y * 16))  # Left side
             self.gameDisplay.blit(pygame.transform.rotate(self.borderS, 270), (self.offsetX + self.min_width - 66, self.offsetY + y * 16))  # Right side
@@ -216,7 +215,7 @@ class LightHackGame:
                         self.calculate()
                 # Click on inventory panel to select different pocket slot
                 else:
-                    x, y= (mouseX - (self.levelData["width"] * self.cellSize + 5 + self.offsetX)) // self.cellSize*2, (mouseY - self.offsetY) // self.cellSize*2
+                    x, y= (mouseX - (self.levelData["width"] * self.cellSize + 5 + self.offsetX)) // (self.cellSize*2), (mouseY - self.offsetY) // (self.cellSize*2)
                     if x >= 0 and y >= 0 and x < 3 and y < 5 and (y * 3 + x) < len(self.pocket):
                         self.selectedPocket = y * 3 + x
                         self.drawPocketCells()
@@ -395,7 +394,7 @@ class LightHackGame:
         # Add a separator after everything
         pygame.draw.rect(
                     self.gameDisplay, (0, 75, 85),
-                    (self.levelData["width"] * self.cellSize + self.offsetX, self.offsetY, 15, self.levelData["height"] * self.cellSize)
+                    (self.levelData["width"] * self.cellSize + self.offsetX, self.offsetY, 5, self.levelData["height"] * self.cellSize)
                 )
 
         # Initialize laser beams for the starting state
@@ -518,5 +517,5 @@ class LightHackGame:
 if __name__ == "__main__":
     # Create game instance and run a hard level
     game = LightHackGame()
-    game.load("section1/m1")  # Load level from JSON file
+    game.load("section1/h1")  # Load level from JSON file
     game.play()  # Start the game loop
