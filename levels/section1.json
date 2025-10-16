@@ -6,7 +6,7 @@
         "L0": {
             "type": "level",
             "data": {
-                "state": 2,
+                "state": 1,
                 "next": {
                     "3": [
                         0,

@@ -17,9 +17,9 @@ class levelMaker(LightHackGame):
     def placeCell(self, x: int, y: int, overlay=False):
         if self.complexLayout[y][x] is not None:
             if (x, y) in self.toPocket[0]:
-                self.gameDisplay.blit(multiply(self.complexLayout[y][x].render(overlay=overlay), (255,180,180)), (x*80 + self.offsetX, y*80 + self.offsetY))
+                self.gameDisplay.blit(multiply(self.complexLayout[y][x].render(scale=(self.cellSize,self.cellSize), overlay=overlay), (255,180,180)), (x*self.cellSize + self.offsetX, y*self.cellSize + self.offsetY))
             else:
-                self.gameDisplay.blit(self.complexLayout[y][x].render(overlay=overlay), (x*80 + self.offsetX, y*80 + self.offsetY))
+                self.gameDisplay.blit(self.complexLayout[y][x].render(scale= (self.cellSize,self.cellSize), overlay=overlay), (x*self.cellSize + self.offsetX, y*self.cellSize + self.offsetY))
 
     def makeId(self, name, IDs):
         for i in range(100):
@@ -50,10 +50,10 @@ class levelMaker(LightHackGame):
         availableCells= cells.copy()
         availableCells.pop("default")
         for i, cell in enumerate(availableCells):
-            self.gameDisplay.blit(self.background, (i * self.cellSize + self.offsetX, self.levelData["height"] * 80 + self.offsetY))
+            self.gameDisplay.blit(self.background, (i * self.cellSize + self.offsetX, self.levelData["height"] * self.cellSize + self.offsetY))
             if i == self.selectedCell:
-                self.gameDisplay.blit(self.highlight, (i * self.cellSize + self.offsetX, self.levelData["height"] * 80 + self.offsetY))
-            self.gameDisplay.blit(cells[cell]().render(), (i * self.cellSize + self.offsetX, self.levelData["height"] * 80 + self.offsetY))
+                self.gameDisplay.blit(self.highlight, (i * self.cellSize + self.offsetX, self.levelData["height"] * self.cellSize + self.offsetY))
+            self.gameDisplay.blit(cells[cell]().render(), (i * self.cellSize + self.offsetX, self.levelData["height"] * self.cellSize + self.offsetY))
 
     def keyHandler(self, event):
         mouseX, mouseY = pygame.mouse.get_pos()

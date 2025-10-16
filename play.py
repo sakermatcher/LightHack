@@ -8,6 +8,11 @@ import logging
 import numpy as np
 import json
 from cells import cells
+from screeninfo import get_monitors
+
+monitors = get_monitors()
+main_monitor = min(monitors, key=lambda m: (abs(m.x), abs(m.y)))
+screenHeight = main_monitor.height
 
 class LightHackGame:
     """Main game class that handles the Light Hack puzzle game mechanics."""
@@ -32,7 +37,7 @@ class LightHackGame:
         self.levelData = None  # Complete level configuration
         self.selectedPocket = 0  # Currently selected pocket slot (0-14)
 
-        self.cellSize = 80  # Size of each cell in pixels
+        self.cellSize = int(screenHeight / 13.5)  # Size of each cell in pixels
 
     def makeGradient(self):
         """Creates and returns a gradient surface filling the screen."""
@@ -89,12 +94,12 @@ class LightHackGame:
 
     def placeBack(self, x: int, y: int): #Place the background of the cell
         """Draw the background texture for a cell at position (x, y)."""
-        self.gameDisplay.blit(self.background, (x * 80 + self.offsetX, y * 80 + self.offsetY))
+        self.gameDisplay.blit(self.background, (x * self.cellSize + self.offsetX, y * self.cellSize + self.offsetY))
 
     def placeCell(self, x: int, y: int, overlay=False): #Place the cell
         """Draw a game cell at position (x, y) with optional overlay effect."""
         if self.complexLayout[y][x] is not None:
-            self.gameDisplay.blit(self.complexLayout[y][x].render(overlay=overlay), (x*80 + self.offsetX, y*80 + self.offsetY))
+            self.gameDisplay.blit(self.complexLayout[y][x].render(scale=(self.cellSize,self.cellSize),overlay=overlay), (x*self.cellSize + self.offsetX, y*self.cellSize + self.offsetY))
 
     def drawPocketCells(self): #Draw the cells in the pocket
         """Render the inventory panel showing available cells and their quantities."""
@@ -102,19 +107,18 @@ class LightHackGame:
         for i in range(15):
             x = i % 3
             y = i // 3
-            self.gameDisplay.blit(self.backgroundPocket, (self.levelData["width"] * 80 + 5 + x*160 + self.offsetX, y*160 + self.offsetY))
+            self.gameDisplay.blit(self.backgroundPocket, (self.levelData["width"] * self.cellSize + 5 + x*self.cellSize*2 + self.offsetX, y*self.cellSize*2 + self.offsetY))
             # Highlight currently selected pocket slot
             if i == self.selectedPocket:
-                self.gameDisplay.blit(self.highlightPocket, (self.levelData["width"] * 80 + 5 + x*160 + self.offsetX, y*160 + self.offsetY))
-
+                self.gameDisplay.blit(self.highlightPocket, (self.levelData["width"] * self.cellSize + 5 + x*self.cellSize*2 +self.offsetX, y*self.cellSize*2 + self.offsetY))
         # Draw the actual cell items and their quantities
         for i, (cell, qty) in enumerate(self.pocket.items()):
             x = i % 3
             y = i // 3
             # Render the cell image in the pocket slot
             self.gameDisplay.blit(
-                cells[self.cellData[cell]["type"]](data=self.cellData[cell]["data"]).render(scale=(144,144)),
-                (self.levelData["width"] * 80 + 5 + x*144 + (x+1) * 8 + x * 8 + self.offsetX, y*144 + (y+1) * 8 + y * 8 + self.offsetY)
+                cells[self.cellData[cell]["type"]](data=self.cellData[cell]["data"]).render(scale=(self.cellSize*2,self.cellSize*2)),
+                (self.levelData["width"] * self.cellSize + 5 + x*self.cellSize*2 + self.offsetX, y*self.cellSize*2 + self.offsetY)
             )
             # Display quantity indicator for available items
             if qty > 0:
@@ -123,14 +127,14 @@ class LightHackGame:
                 # Draw cyan-colored quantity numbers
                 indicator.blit(multiply(self.numbers[int(qty[-2])], (0,255,255)), (13, 33))
                 indicator.blit(multiply(self.numbers[int(qty[-1])], (0,255,255)), (23, 33))
-                self.gameDisplay.blit(pygame.transform.scale(indicator, (160, 160)), (self.levelData["width"] * 80 + 5 + x*160 + self.offsetX, y*160 + self.offsetY))
+                self.gameDisplay.blit(pygame.transform.scale(indicator, (self.cellSize*2, self.cellSize*2)), (self.levelData["width"] * self.cellSize + 5 + x*self.cellSize*2 + self.offsetX, y*self.cellSize*2 + self.offsetY))
             else:
                 # Display "00" in orange when item is out of stock
                 qty= "00"
                 indicator = self.qty.copy()
                 indicator.blit(multiply(self.numbers[0], (255,155,0)), (13, 33))
                 indicator.blit(multiply(self.numbers[0], (255,155,0)), (23, 33))
-                self.gameDisplay.blit(pygame.transform.scale(indicator, (160, 160)), (self.levelData["width"] * 80 + 5 + x*160 + self.offsetX, y*160 + self.offsetY))
+                self.gameDisplay.blit(pygame.transform.scale(indicator, (self.cellSize*2, self.cellSize*2)), (self.levelData["width"] * self.cellSize + 5 + x*self.cellSize*2 + self.offsetX, y*self.cellSize*2 + self.offsetY))
 
     def beam(self, startX, startY, Dir, color): #Shoot a beam from (startX, startY) in direction Dir with color
         """
@@ -212,7 +216,7 @@ class LightHackGame:
                         self.calculate()
                 # Click on inventory panel to select different pocket slot
                 else:
-                    x, y= (mouseX - (self.levelData["width"] * 80 + 5 + self.offsetX)) // 160, (mouseY - self.offsetY) // 160
+                    x, y= (mouseX - (self.levelData["width"] * self.cellSize + 5 + self.offsetX)) // self.cellSize*2, (mouseY - self.offsetY) // self.cellSize*2
                     if x >= 0 and y >= 0 and x < 3 and y < 5 and (y * 3 + x) < len(self.pocket):
                         self.selectedPocket = y * 3 + x
                         self.drawPocketCells()
@@ -329,11 +333,11 @@ class LightHackGame:
         
         # Calculate display dimensions based on level size + inventory panel
         if texts is None:
-            self.min_width = self.levelData["width"] * 80 + 485 + 66
-            self.min_height = self.levelData["height"] * 80 + 66
+            self.min_width = self.levelData["width"] * self.cellSize + 5 + self.cellSize * 6 + 66
+            self.min_height = self.levelData["height"] * self.cellSize + 66
         else:
-            self.min_width = self.levelData["width"] * 80 + 485 + 66
-            self.min_height = self.levelData["height"] * 80 + 130 + 66
+            self.min_width = self.levelData["width"] * self.cellSize + 5 + self.cellSize * 6 + 66
+            self.min_height = self.levelData["height"] * self.cellSize + 130 + 66
         self.texts = texts
         self.offsetX = (max(startSize[0], self.min_width) - self.min_width) // 2 + 33
         self.offsetY = (max(startSize[1], self.min_height) - self.min_height) // 2 + 33
@@ -344,13 +348,13 @@ class LightHackGame:
         self.borderC = pygame.image.load("assets/border/corner.png").convert_alpha()
         self.borderS = pygame.image.load("assets/border/side.png").convert_alpha()
         self.background = pygame.image.load("assets/background.png")
-        self.backgroundPocket = pygame.transform.scale(self.background, (160, 160))
-        self.background = pygame.transform.scale(self.background, (80, 80))
+        self.backgroundPocket = pygame.transform.scale(self.background, (self.cellSize*2, self.cellSize*2))
+        self.background = pygame.transform.scale(self.background, (self.cellSize, self.cellSize))
         self.qty = pygame.image.load("assets/indicators/qty.png").convert_alpha()
         self.numbers= tuple(pygame.image.load(f"assets/{i}").convert_alpha() for i in numbers)
         highlight = pygame.image.load("assets/highlight.png").convert_alpha()
-        self.highlight = pygame.transform.scale(highlight, (80, 80))
-        self.highlightPocket = pygame.transform.scale(highlight, (160, 160))
+        self.highlight = pygame.transform.scale(highlight, (self.cellSize, self.cellSize))
+        self.highlightPocket = pygame.transform.scale(highlight, (self.cellSize*2, self.cellSize*2))
         self.lastWidth, self.lastHeight = self.gameDisplay.get_size()
 
         # Initialize game data from level configuration
@@ -391,7 +395,7 @@ class LightHackGame:
         # Add a separator after everything
         pygame.draw.rect(
                     self.gameDisplay, (0, 75, 85),
-                    (self.levelData["width"] * 80 + self.offsetX, self.offsetY, 15, self.levelData["height"] * 80)
+                    (self.levelData["width"] * self.cellSize + self.offsetX, self.offsetY, 15, self.levelData["height"] * self.cellSize)
                 )
 
         # Initialize laser beams for the starting state
@@ -408,7 +412,7 @@ class LightHackGame:
 
         # Render instructional texts if provided
         if self.texts is not None:
-            font= pygame.font.Font(None, 26)
+            font= pygame.font.Font(None, int(screenHeight / 45))
             for i, txt in enumerate(self.texts):
                 rendered_txt = font.render(txt, True, (5,25,55))
                 self.gameDisplay.blit(rendered_txt, (self.offsetX + 10, self.offsetY + self.min_height - 188 + i * 20))
@@ -454,7 +458,7 @@ class LightHackGame:
                     pastCol, pastRow = col, row
 
                     # Add highlight to current cell and redraw it
-                    self.gameDisplay.blit(self.highlight, (col * 80 + self.offsetX, row * 80 + self.offsetY))
+                    self.gameDisplay.blit(self.highlight, (col * self.cellSize + self.offsetX, row * self.cellSize + self.offsetY))
                     self.placeCell(col, row)
 
             # Remove highlight when mouse leaves game area
@@ -491,7 +495,7 @@ class LightHackGame:
                 # Redraw separator between game area and inventory
                 pygame.draw.rect(
                     self.gameDisplay, (0, 75, 85),
-                    (self.levelData["width"] * 80 + self.offsetX, self.offsetY, 15, self.levelData["height"] * 80)
+                    (self.levelData["width"] * self.cellSize + self.offsetX, self.offsetY, 15, self.levelData["height"] * self.cellSize)
                 )
 
                 # Redraw inventory panel
@@ -499,7 +503,7 @@ class LightHackGame:
 
                 # Redraw texts if they exist
                 if self.texts is not None:
-                    font= pygame.font.Font(None, 26)
+                    font= pygame.font.Font(None,int(screenHeight / 45))
                     for i, txt in enumerate(self.texts):
                         rendered_txt = font.render(txt, True, (5,25,55))
                         self.gameDisplay.blit(rendered_txt, (self.offsetX + 10, self.offsetY + self.min_height - 188 + i * 20))
