@@ -290,10 +290,54 @@ class LightHackGame:
                 if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
                     self.placeCell(x, y, overlay=True)
 
-            # ESC key - exit to pause menu (TODO: implement pause menu)
+            # ESC key - abrir menú de pausa con controles y botones
             elif event.key == pygame.K_ESCAPE:
-                return "exit"
-            
+                paused = True
+                font_title = pygame.font.SysFont('Arial', 50)
+                font_text = pygame.font.SysFont('Arial', 32)
+                font_button = pygame.font.SysFont('Arial', 25)
+                while paused:
+                    self.gameDisplay.fill((30, 30, 50))
+                    # Título
+                    title = font_title.render("PAUSA", True, (50, 200, 255))
+                    self.gameDisplay.blit(title, (self.min_width // 2 - title.get_width() // 2, 60))
+                    # Controles
+                    controles = [
+                        "Controles:",
+                        "WASD: Mover selección de inventario",
+                        "Click Izq: Colocar celda",
+                        "Click Der: Quitar celda",
+                        "R: Rotar celda",
+                        "F: Voltear celda",
+                        "E: Overlay de celda",
+                        "ESC: Pausa",
+                    ]
+                    for i, txt in enumerate(controles):
+                        line = font_text.render(txt, True, (200, 200, 200))
+                        self.gameDisplay.blit(line, (self.min_width // 2 - line.get_width() // 2, 140 + i * 35))
+                    btn_continue = pygame.Rect(self.min_width // 2 - 160, 500, 140, 60) #estos son los botones
+                    btn_exit = pygame.Rect(self.min_width // 2 + 20, 500, 140, 60)
+                    pygame.draw.rect(self.gameDisplay, (50, 200, 100), btn_continue)
+                    pygame.draw.rect(self.gameDisplay, (200, 50, 50), btn_exit)
+                    txt_continue = font_button.render("Continuar", True, (0, 0, 0))
+                    txt_exit = font_button.render("Salir", True, (0, 0, 0))
+                    self.gameDisplay.blit(txt_continue, (btn_continue.x + 10, btn_continue.y + 10))
+                    self.gameDisplay.blit(txt_exit, (btn_exit.x + 35, btn_exit.y + 10))
+                    pygame.display.update()
+                    for pause_event in pygame.event.get(): # Manejo de eventos en pausa
+                        if pause_event.type == pygame.QUIT:
+                            pygame.quit()
+                            exit()
+                        elif pause_event.type == pygame.KEYDOWN:
+                            if pause_event.key == pygame.K_ESCAPE:
+                                paused = False
+                        elif pause_event.type == pygame.MOUSEBUTTONDOWN and pause_event.button == 1:
+                            mx, my = pygame.mouse.get_pos()
+                            if btn_continue.collidepoint(mx, my):
+                                paused = False
+                            elif btn_exit.collidepoint(mx, my):
+                                return
+
         # Check if level is completed - all final cells must be completed
         for f in self.finals:
             if not f.isCompleated:
@@ -301,7 +345,7 @@ class LightHackGame:
         else:
             # Display level completion message
             font = pygame.font.SysFont('Arial', 64)
-            text = font.render('Level Compleated!', True, (255, 255, 255))
+            text = font.render('Level Completed!', True, (255, 255, 255))
             text_rect = text.get_rect(center=(self.min_width // 2, self.min_height // 2))
             self.gameDisplay.blit(text, text_rect)
             pygame.display.update()
@@ -517,5 +561,5 @@ class LightHackGame:
 if __name__ == "__main__":
     # Create game instance and run a hard level
     game = LightHackGame()
-    game.load("section1/h1")  # Load level from JSON file
+    game.load("testing")  # Load level from JSON file
     game.play()  # Start the game loop

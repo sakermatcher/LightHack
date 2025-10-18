@@ -213,4 +213,3 @@ class final(default):
             "color": self.color           # Target RGB color values
         }
         return data
-    
