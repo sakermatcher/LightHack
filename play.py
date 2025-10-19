@@ -221,7 +221,7 @@ class LightHackGame:
                         self.drawPocketCells()
             # Right mouse button - remove cells and return them to inventory
             elif event.button == 3:
-                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"]:
+                if x >= 0 and y >= 0 and x < self.levelData["width"] and y < self.levelData["height"] and self.levelData["layout"][y][x] == "D":
                     # Remove cell if it exists in inventory system
                     if self.complexLayout[y][x].name in self.pocket:
                         self.pocket[self.complexLayout[y][x].name] += 1
@@ -587,7 +587,7 @@ class LightHackGame:
 
 # Main program execution
 if __name__ == "__main__":
-    # Create game instance and run a hard level
+    # Create game instance and run a level
     game = LightHackGame()
     game.load("testing")  # Load level from JSON file
     game.play()  # Start the game loop
