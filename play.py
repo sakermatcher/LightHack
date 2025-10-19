@@ -300,23 +300,23 @@ class LightHackGame:
                     self.gameDisplay.fill((30, 30, 50))
                     # Título
                     title = font_title.render("PAUSA", True, (50, 200, 255))
-                    self.gameDisplay.blit(title, (self.min_width // 2 - title.get_width() // 2, 60))
+                    self.gameDisplay.blit(title, (self.gameDisplay.get_width() // 2 - title.get_width() // 2, 60))
                     # Controles
                     controles = [
                         "Controles:",
-                        "WASD: Mover selección de inventario",
+                        "",
+                        "WASD/Click: Mover selección de inventario",
                         "Click Izq: Colocar celda",
                         "Click Der: Quitar celda",
                         "R: Rotar celda",
                         "F: Voltear celda",
-                        "E: Overlay de celda",
-                        "ESC: Pausa",
+                        "E: Datos de colores de la celda"
                     ]
                     for i, txt in enumerate(controles):
                         line = font_text.render(txt, True, (200, 200, 200))
-                        self.gameDisplay.blit(line, (self.min_width // 2 - line.get_width() // 2, 140 + i * 35))
-                    btn_continue = pygame.Rect(self.min_width // 2 - 160, 500, 140, 60) #estos son los botones
-                    btn_exit = pygame.Rect(self.min_width // 2 + 20, 500, 140, 60)
+                        self.gameDisplay.blit(line, (self.gameDisplay.get_width() // 2 - line.get_width() // 2, 140 + i * 35))
+                    btn_continue = pygame.Rect(self.gameDisplay.get_width() // 2 - 160, 500, 140, 60) #estos son los botones
+                    btn_exit = pygame.Rect(self.gameDisplay.get_width() // 2 + 20, 500, 140, 60)
                     pygame.draw.rect(self.gameDisplay, (50, 200, 100), btn_continue)
                     pygame.draw.rect(self.gameDisplay, (200, 50, 50), btn_exit)
                     txt_continue = font_button.render("Continuar", True, (0, 0, 0))
@@ -326,8 +326,7 @@ class LightHackGame:
                     pygame.display.update()
                     for pause_event in pygame.event.get(): # Manejo de eventos en pausa
                         if pause_event.type == pygame.QUIT:
-                            pygame.quit()
-                            exit()
+                            return "exit"
                         elif pause_event.type == pygame.KEYDOWN:
                             if pause_event.key == pygame.K_ESCAPE:
                                 paused = False
@@ -336,7 +335,36 @@ class LightHackGame:
                             if btn_continue.collidepoint(mx, my):
                                 paused = False
                             elif btn_exit.collidepoint(mx, my):
-                                return
+                                return "exit"
+                    # Redraw gradient background
+                self.makeGradient()
+
+                # Redraw border around game area
+                self.makeBorder()
+
+                # Redraw entire game grid after resize
+                for y in range(self.levelData["height"]):
+                    for x in range(self.levelData["width"]):
+                        self.placeBack(x, y)
+                        self.placeCell(x, y)
+
+                # Redraw separator between game area and inventory
+                pygame.draw.rect(
+                    self.gameDisplay, (0, 75, 85),
+                    (self.levelData["width"] * self.cellSize + self.offsetX, self.offsetY, 15, self.levelData["height"] * self.cellSize)
+                )
+
+                # Redraw inventory panel
+                self.drawPocketCells()
+
+                # Redraw texts if they exist
+                if self.texts is not None:
+                    font= pygame.font.Font(None,int(screenHeight / 45))
+                    for i, txt in enumerate(self.texts):
+                        rendered_txt = font.render(txt, True, (5,25,55))
+                        self.gameDisplay.blit(rendered_txt, (self.offsetX + 10, self.offsetY + self.min_height - 188 + i * 20))
+
+                return "continue"
 
         # Check if level is completed - all final cells must be completed
         for f in self.finals:
