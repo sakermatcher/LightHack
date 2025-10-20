@@ -589,5 +589,5 @@ class LightHackGame:
 if __name__ == "__main__":
     # Create game instance and run a level
     game = LightHackGame()
-    game.load("section1/h4")  # Load level from JSON file
+    game.load("section1/h1")  # Load level from JSON file
     game.play()  # Start the game loop
