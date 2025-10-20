@@ -1,0 +1,571 @@
+{
+    "width": 15,
+    "height": 10,
+    "pocket": {},
+    "cells": {
+        "L0": {
+            "type": "level",
+            "data": {
+                "state": 2,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t1"
+            }
+        },
+        "L1": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t2"
+            }
+        },
+        "L2": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t3"
+            }
+        },
+        "L3": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t4"
+            }
+        },
+        "L4": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t5"
+            }
+        },
+        "L5": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t6"
+            }
+        },
+        "L6": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "t7"
+            }
+        },
+        "L7": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m2"
+            }
+        },
+        "L8": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        0,
+                        0,
+                        10
+                    ],
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m1"
+            }
+        },
+        "L9": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        0,
+                        0,
+                        10
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "e4"
+            }
+        },
+        "L10": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ],
+                    "1": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "e3"
+            }
+        },
+        "L11": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "e2"
+            }
+        },
+        "L12": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "e1"
+            }
+        },
+        "L13": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m7"
+            }
+        },
+        "L14": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ],
+                    "3": [
+                        0,
+                        10,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m3"
+            }
+        },
+        "L15": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "e5"
+            }
+        },
+        "L16": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {},
+                "unlocksWith": 0,
+                "level": "h5"
+            }
+        },
+        "L17": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m8"
+            }
+        },
+        "L18": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 1,
+                "level": "h2"
+            }
+        },
+        "L19": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m4"
+            }
+        },
+        "L20": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "2": [
+                        0,
+                        0,
+                        10
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m5"
+            }
+        },
+        "L21": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "3": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "h3"
+            }
+        },
+        "L22": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "0": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 2,
+                "level": "h4"
+            }
+        },
+        "L23": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 2,
+                "level": "h1"
+            }
+        },
+        "L24": {
+            "type": "level",
+            "data": {
+                "state": 0,
+                "next": {
+                    "1": [
+                        10,
+                        0,
+                        0
+                    ]
+                },
+                "unlocksWith": 0,
+                "level": "m6"
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "L0",
+            "D",
+            "L1",
+            "D",
+            "L2",
+            "D",
+            "L3",
+            "D",
+            "L4",
+            "D",
+            "D",
+            "L5",
+            "D",
+            "D",
+            "L6"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D"
+        ],
+        [
+            "D",
+            "L7",
+            "D",
+            "L8",
+            "D",
+            "D",
+            "L9",
+            "D",
+            "D",
+            "L10",
+            "D",
+            "L11",
+            "D",
+            "D",
+            "L12"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "L13",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L14",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L15"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L16",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D"
+        ],
+        [
+            "D",
+            "L17",
+            "D",
+            "L18",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L19",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L20"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "L21",
+            "D",
+            "D",
+            "L22",
+            "D",
+            "D",
+            "L23",
+            "D",
+            "D",
+            "D",
+            "D",
+            "L24"
+        ],
+        [
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D"
+        ]
+    ]
+}

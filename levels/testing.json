@@ -1,22 +1,16 @@
 {
     "width": 10,
     "height": 10,
-    "pocket": {},
+    "pocket": {
+        "M0": 8
+    },
     "cells": {
-        "X": {
-            "type": "block",
-            "data": {}
-        },
-        "D": {
-            "type": "default",
-            "data": {}
-        },
         "L0": {
             "type": "laser",
             "data": {
-                "direction": 0,
+                "direction": 2,
                 "color": [
-                    9,
+                    10,
                     0,
                     0
                 ]
@@ -25,9 +19,51 @@
         "L1": {
             "type": "laser",
             "data": {
-                "direction": 0,
+                "direction": 2,
                 "color": [
-                    8,
+                    0,
+                    10,
+                    0
+                ]
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 3,
+                "final": false,
+                "color": [
+                    10,
+                    0,
+                    0
+                ]
+            }
+        },
+        "F1": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": false,
+                "color": [
+                    0,
+                    10,
+                    0
+                ]
+            }
+        },
+        "F2": {
+            "type": "final",
+            "data": {
+                "direction": 2,
+                "final": false,
+                "color": [
+                    10,
                     0,
                     0
                 ]
@@ -38,7 +74,7 @@
             "data": {
                 "direction": 0,
                 "color": [
-                    7,
+                    0,
                     0,
                     0
                 ]
@@ -49,9 +85,9 @@
             "data": {
                 "direction": 0,
                 "color": [
-                    6,
                     0,
-                    0
+                    0,
+                    10
                 ]
             }
         },
@@ -60,66 +96,19 @@
             "data": {
                 "direction": 0,
                 "color": [
-                    4,
                     0,
-                    0
+                    0,
+                    5
                 ]
             }
         },
-        "L5": {
-            "type": "laser",
-            "data": {
-                "direction": 0,
-                "color": [
-                    3,
-                    0,
-                    0
-                ]
-            }
+        "X": {
+            "type": "block",
+            "data": {}
         },
-        "L6": {
-            "type": "laser",
-            "data": {
-                "direction": 0,
-                "color": [
-                    2,
-                    0,
-                    0
-                ]
-            }
-        },
-        "L7": {
-            "type": "laser",
-            "data": {
-                "direction": 0,
-                "color": [
-                    4,
-                    5,
-                    0
-                ]
-            }
-        },
-        "L8": {
-            "type": "laser",
-            "data": {
-                "direction": 0,
-                "color": [
-                    0,
-                    0,
-                    0
-                ]
-            }
-        },
-        "L9": {
-            "type": "laser",
-            "data": {
-                "direction": 0,
-                "color": [
-                    10,
-                    0,
-                    0
-                ]
-            }
+        "D": {
+            "type": "default",
+            "data": {}
         }
     },
     "layout": [
@@ -136,111 +125,111 @@
             "X"
         ],
         [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "L9",
+            "X",
             "L0",
             "L1",
+            "D",
+            "L0",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "F0",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "M0",
+            "F1",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "F2",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
             "L2",
             "L3",
+            "D",
+            "D",
+            "D",
             "L4",
-            "L5",
-            "L6",
-            "L7",
             "X"
         ],
         [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "X"
-        ],
-        [
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
-            "D",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
             "X"
         ]
     ]

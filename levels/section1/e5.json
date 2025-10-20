@@ -1,0 +1,168 @@
+{
+    "width": 8,
+    "height": 9,
+    "pocket": {
+        "M0": 1,
+        "P0": 2
+    },
+    "cells": {
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    4,
+                    9,
+                    8
+                ]
+            }
+        },
+        "M0": {
+            "type": "prism",
+            "data": {
+                "direction": 0,
+                "flipped": 0
+            }
+        },
+        "P0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "L1": {
+            "type": "laser",
+            "data": {
+                "direction": 3,
+                "color": [
+                    2,
+                    8,
+                    5
+                ]
+            }
+        },
+        "L2": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    7,
+                    0,
+                    6
+                ]
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 3,
+                "final": true,
+                "color": [
+                    4,
+                    8,
+                    6
+                ]
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "L0",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "L1",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "L2",
+            "X",
+            "F0",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}

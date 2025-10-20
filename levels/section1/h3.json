@@ -1,0 +1,338 @@
+{
+    "width": 10,
+    "height": 10,
+    "pocket": {
+        "M0": 6,
+        "P0": 5,
+        "G1": 1
+    },
+    "cells": {
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    0,
+                    8
+                ]
+            }
+        },
+        "L1": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    4,
+                    0
+                ]
+            }
+        },
+        "L2": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    4,
+                    0,
+                    0
+                ]
+            }
+        },
+        "L3": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    6,
+                    0
+                ]
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "P0": {
+            "type": "prism",
+            "data": {
+                "direction": 0,
+                "flipped": 0
+            }
+        },
+        "G0": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 2
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": true,
+                "color": [
+                    0,
+                    5,
+                    10
+                ]
+            }
+        },
+        "L4": {
+            "type": "laser",
+            "data": {
+                "direction": 3,
+                "color": [
+                    8,
+                    0,
+                    0
+                ]
+            }
+        },
+        "F1": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": false,
+                "color": [
+                    4,
+                    3,
+                    0
+                ]
+            }
+        },
+        "F2": {
+            "type": "final",
+            "data": {
+                "direction": 1,
+                "final": false,
+                "color": [
+                    1,
+                    1,
+                    0
+                ]
+            }
+        },
+        "F3": {
+            "type": "final",
+            "data": {
+                "direction": 3,
+                "final": false,
+                "color": [
+                    6,
+                    6,
+                    0
+                ]
+            }
+        },
+        "F4": {
+            "type": "final",
+            "data": {
+                "direction": 1,
+                "final": false,
+                "color": [
+                    6,
+                    2,
+                    0
+                ]
+            }
+        },
+        "G1": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 1
+            }
+        },
+        "G2": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 5
+            }
+        },
+        "F5": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": false,
+                "color": [
+                    0,
+                    10,
+                    6
+                ]
+            }
+        },
+        "L5": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    6,
+                    0
+                ]
+            }
+        },
+        "L6": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    8,
+                    0
+                ]
+            }
+        },
+        "L7": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    0,
+                    6
+                ]
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "L0",
+            "L1",
+            "X",
+            "L2",
+            "L3",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "D",
+            "D",
+            "D",
+            "G0",
+            "D",
+            "D",
+            "F0",
+            "X"
+        ],
+        [
+            "X",
+            "L4",
+            "D",
+            "X",
+            "D",
+            "F1",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "F2",
+            "X",
+            "X",
+            "X",
+            "X",
+            "F3",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "F4",
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "D",
+            "D",
+            "D",
+            "G2",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "F5",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "L5",
+            "X",
+            "L6",
+            "X",
+            "L7",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}

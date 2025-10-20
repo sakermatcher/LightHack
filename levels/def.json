@@ -3,6 +3,7 @@
     "height": 10,
     "pocket": {},
     "cells": {
+        
         "X": {
             "type": "block",
             "data": {}

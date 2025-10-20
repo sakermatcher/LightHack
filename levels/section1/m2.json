@@ -1,0 +1,220 @@
+{
+    "width": 10,
+    "height": 10,
+    "pocket": {},
+    "cells": {
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    6,
+                    0
+                ]
+            }
+        },
+        "L1": {
+            "type": "laser",
+            "data": {
+                "direction": 2,
+                "color": [
+                    0,
+                    4,
+                    0
+                ]
+            }
+        },
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "P0": {
+            "type": "prism",
+            "data": {
+                "direction": 3,
+                "flipped": true
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 0,
+                "final": false,
+                "color": [
+                    0,
+                    10,
+                    3
+                ]
+            }
+        },
+        "P1": {
+            "type": "prism",
+            "data": {
+                "direction": 1,
+                "flipped": false
+            }
+        },
+        "M1": {
+            "type": "mirror",
+            "data": {
+                "direction": 1
+            }
+        },
+        "L2": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    0,
+                    0,
+                    6
+                ]
+            }
+        },
+        "F1": {
+            "type": "final",
+            "data": {
+                "direction": 3,
+                "final": true,
+                "color": [
+                    0,
+                    0,
+                    3
+                ]
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "L0",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "L1",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "M0",
+            "D",
+            "P0",
+            "F0",
+            "D",
+            "P1",
+            "D",
+            "M1",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "D",
+            "X",
+            "X",
+            "D",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "X",
+            "X",
+            "D",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "M1",
+            "D",
+            "M1",
+            "X",
+            "X",
+            "M0",
+            "D",
+            "M0",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "L2",
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X",
+            "F1",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}
