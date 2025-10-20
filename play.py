@@ -405,10 +405,10 @@ class LightHackGame:
         # Calculate display dimensions based on level size + inventory panel
         if texts is None:
             self.min_width = self.levelData["width"] * self.cellSize + 5 + self.cellSize * 6 + 66
-            self.min_height = self.levelData["height"] * self.cellSize + 66
+            self.min_height = max(self.levelData["height"] * self.cellSize + 66, 160 * 5 + 66)
         else:
             self.min_width = self.levelData["width"] * self.cellSize + 5 + self.cellSize * 6 + 66
-            self.min_height = self.levelData["height"] * self.cellSize + 130 + 66
+            self.min_height = max(self.levelData["height"] * self.cellSize + 130 + 66, 160 * 5 + 66)
         self.texts = texts
         self.offsetX = (max(startSize[0], self.min_width) - self.min_width) // 2 + 33
         self.offsetY = (max(startSize[1], self.min_height) - self.min_height) // 2 + 33
@@ -589,5 +589,5 @@ class LightHackGame:
 if __name__ == "__main__":
     # Create game instance and run a level
     game = LightHackGame()
-    game.load("testing")  # Load level from JSON file
+    game.load("section1/h4")  # Load level from JSON file
     game.play()  # Start the game loop

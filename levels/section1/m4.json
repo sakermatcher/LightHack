@@ -1,0 +1,227 @@
+{
+    "width": 10,
+    "height": 10,
+    "pocket": {
+        "M0": 12,
+        "P0": 2,
+        "G1": 1,
+        "G4": 1,
+        "G5": 1
+    },
+    "cells": {
+        "M0": {
+            "type": "mirror",
+            "data": {
+                "direction": 0
+            }
+        },
+        "G0": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 1,
+                "potency": 1
+            }
+        },
+        "P0": {
+            "type": "prism",
+            "data": {
+                "direction": 0,
+                "flipped": 0
+            }
+        },
+        "G1": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 5
+            }
+        },
+        "G2": {
+            "type": "glass",
+            "data": {
+                "direction": 1,
+                "type": 0,
+                "potency": 1
+            }
+        },
+        "G3": {
+            "type": "glass",
+            "data": {
+                "direction": 1,
+                "type": 1,
+                "potency": 1
+            }
+        },
+        "G4": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 7
+            }
+        },
+        "G5": {
+            "type": "glass",
+            "data": {
+                "direction": 0,
+                "type": 0,
+                "potency": 1
+            }
+        },
+        "L0": {
+            "type": "laser",
+            "data": {
+                "direction": 0,
+                "color": [
+                    3,
+                    2,
+                    7
+                ]
+            }
+        },
+        "F0": {
+            "type": "final",
+            "data": {
+                "direction": 3,
+                "final": true,
+                "color": [
+                    10,
+                    8,
+                    7
+                ]
+            }
+        },
+        "X": {
+            "type": "block",
+            "data": {}
+        },
+        "D": {
+            "type": "default",
+            "data": {}
+        }
+    },
+    "layout": [
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "D",
+            "G0",
+            "D",
+            "X",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "G0",
+            "D",
+            "D",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "G2",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "G3",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "X",
+            "D",
+            "X",
+            "D",
+            "G2",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X",
+            "D",
+            "G3",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "X",
+            "X",
+            "X",
+            "D",
+            "D",
+            "G2",
+            "D",
+            "X"
+        ],
+        [
+            "X",
+            "D",
+            "D",
+            "D",
+            "D",
+            "D",
+            "X",
+            "L0",
+            "F0",
+            "X"
+        ],
+        [
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X",
+            "X"
+        ]
+    ]
+}

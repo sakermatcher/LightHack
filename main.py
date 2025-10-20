@@ -16,7 +16,8 @@ tutTxt=[
     "Here we have 10 Blue and 10 Red on the laser, but we need 5 Blue and 5 Red, with the use of a dark lens, we can reduce the power of all channels by the\nnumber on its indicator, so we will pass the light through the dark lens to reduce both channels by 5",
     "The prism is a block that can be used to separate a light in its different channels by passing it through the prism on the multicolor section, here we have\n Yellow (Red and Green), but we only need Red, so we will pass the light through the prism and take the Red channel to the generator, note that\nthe prism has specific sides for each color, and one multicolor side so only a specific color can pass through each.",
     "The prism can also be used to combine different channels into one beam, here we have 10 Red and 10 Blue, but we need Magenta (Red and Blue), so we will\npass both beams through the prism to combine them into one, note that the prism has specific sides for each color, and one multicolor side.",
-    "Here we will use one prism to separate the beam, then a lens to change just the Green channel and then place another prism to combine the beam back\ntogether, so we can get the needed power for the generator, use F to flip a prism (Red with Blue)."
+    "Here we will use one prism to separate the beam, then a lens to change just the Green channel and then place another prism to combine the beam back\ntogether, so we can get the needed power for the generator, use F to flip a prism (Red with Blue).",
+    "In this level you will find a new type of generator, the double sided, this one you dont need the exact color levels, instead you only need to get at\nleast the displayed power, if you go over it, the rest will pass through to the other side of the generator, so its okay to overpower it.",
 ]
 
 
