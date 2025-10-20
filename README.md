@@ -13,7 +13,7 @@ LightHack is a puzzle game developed as a university project at Tec de Monterrey
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/LightHack.git
+   git clone https://github.com/sakermatcher/LightHack.git
    cd LightHack
    ```
 
